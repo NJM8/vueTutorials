@@ -55,9 +55,23 @@
     <p> {{ message }} </p>
     <input type="text" v-model="message">
   </div>
+  <br>
+
+  <!-- creating your own custom reusable components -->
+  <div id="app7">
+    <ol>
+      <todo-item 
+        v-for="item in groceryList"
+        v-bind:todo="item"
+        v-bind:key="item.id">
+      </todo-item>
+    </ol>
+  </div>
+
+
   <script>
     // text interpolation
-    let app = new Vue({
+    const app = new Vue({
       el: '#app',
       data: {
         message: 'Hello Vue!'
@@ -65,7 +79,7 @@
     });
 
     // binding to element attributes
-    let app2 = new Vue({
+    const app2 = new Vue({
       el: '#app2',
       data: {
         message: `You loaded this page on ${new Date().toLocaleString()}`
@@ -73,7 +87,7 @@
     });
     
     // conditionals attached to the dom
-    let app3 = new Vue({
+    const app3 = new Vue({
       el: '#app3',
       data: {
         seen: true
@@ -81,7 +95,7 @@
     });
 
     // loops!
-    let app4 = new Vue({
+    const app4 = new Vue({
       el: '#app4',
       data: {
         todos: [
@@ -93,7 +107,7 @@
     });
 
     // handling user input
-    let app5 = new Vue({
+    const app5 = new Vue({
       el: '#app5',
       data: {
         message: 'Vue JS Rocks!'
@@ -107,12 +121,30 @@
     });
 
     // two way binding between input and app state
-    let app6 = new Vue({
+    const app6 = new Vue({
       el: '#app6',
       data: {
         message: 'Hello, Vue!'
       }
     });
+
+    // creating your own custom and reuseable components
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li> {{ todo.text }} </li>'
+    });
+    
+    const app7 = new Vue({
+      el: '#app7',
+      data: {
+        groceryList: [
+          { id: 0, text: 'Vegetables' },
+          { id: 1, text: 'Cheese' },
+          { id: 2, text: 'Steak' }
+        ]
+      }
+    })
+
   </script>
 </body>
 </html>
