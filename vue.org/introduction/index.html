@@ -41,13 +41,20 @@
       </li>
     </ol>
   </div>
+  <br>
 
   <!-- handling user input -->
   <div id="app5">
     <p> {{ message }} </p>
     <button v-on:click="reverseMessage">Reverse Message</button>
   </div>
+  <br>
 
+  <!-- two way binding between input and app state -->
+  <div id="app6">
+    <p> {{ message }} </p>
+    <input type="text" v-model="message">
+  </div>
   <script>
     // text interpolation
     let app = new Vue({
@@ -97,7 +104,15 @@
           this.message = this.message.split('').reverse().join('')
         }
       }
-    })
+    });
+
+    // two way binding between input and app state
+    let app6 = new Vue({
+      el: '#app6',
+      data: {
+        message: 'Hello, Vue!'
+      }
+    });
   </script>
 </body>
 </html>
