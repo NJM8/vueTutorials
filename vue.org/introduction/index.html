@@ -11,15 +11,34 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 </head>
 <body>
+  
+  <!-- text interpolation -->
   <div id="app">
-    <!-- text interpolation -->
     {{ message }}
   </div>
+
+  <!-- binding to element attributes -->
+  <div id="app2">
+    <span v-bind:title="message">
+      Hover your mouse over me for a few seconds
+      to see my dynamically bound title!
+    </span>
+  </div>
   <script>
+
+    // text interpolation
     let app = new Vue({
       el: '#app',
       data: {
         message: 'Hello Vue!'
+      }
+    });
+
+    // binding to element attributes
+    let app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: `You loaded this page on ${new Date().toLocaleString()}`
       }
     })
   </script>
