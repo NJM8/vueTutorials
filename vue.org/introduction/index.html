@@ -32,7 +32,7 @@
     <span v-if="seen">Now you see me</span>
   </div>
   <br>
-  
+
   <!-- loops! -->
   <div id="app4">
     <ol>
@@ -40,6 +40,12 @@
         {{ todo.text }} 
       </li>
     </ol>
+  </div>
+
+  <!-- handling user input -->
+  <div id="app5">
+    <p> {{ message }} </p>
+    <button v-on:click="reverseMessage">Reverse Message</button>
   </div>
 
   <script>
@@ -78,6 +84,20 @@
         ]
       }
     });
+
+    // handling user input
+    let app5 = new Vue({
+      el: '#app5',
+      data: {
+        message: 'Vue JS Rocks!'
+      },
+      methods: {
+        // must be non-arrow function
+        reverseMessage: function(){
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
   </script>
 </body>
 </html>
