@@ -17,6 +17,7 @@
     {{ message }}
   </div>
   <br>
+
   <!-- binding to element attributes -->
   <div id="app2">
     <span v-bind:title="message">
@@ -25,12 +26,21 @@
     </span>
   </div>
   <br>
+
   <!-- conditionals attached to the dom -->
   <div id="app3">
     <span v-if="seen">Now you see me</span>
   </div>
-
-
+  <br>
+  
+  <!-- loops! -->
+  <div id="app4">
+    <ol>
+      <li v-for="todo in todos"> 
+        {{ todo.text }} 
+      </li>
+    </ol>
+  </div>
 
   <script>
     // text interpolation
@@ -54,6 +64,18 @@
       el: '#app3',
       data: {
         seen: true
+      }
+    });
+
+    // loops!
+    let app4 = new Vue({
+      el: '#app4',
+      data: {
+        todos: [
+          { text: 'Learn JavaScript' },
+          { text: 'Learn Vue' },
+          { text: 'Build something awesome!' }
+        ]
       }
     });
   </script>
