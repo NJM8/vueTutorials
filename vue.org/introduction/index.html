@@ -157,7 +157,9 @@
         message: 'Hello Vue'
       },
       computed: {
+        // a computed getter, what this returns always depends on the value of message
         reversedMessage: function(){
+          // 'this' points to the Vue instance, you cannot use arrow functions
           return this.message.split('').reverse().join('');
         }
       }
