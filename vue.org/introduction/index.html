@@ -9,6 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <!-- production version, optimized for size and speed -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 <body>
 
@@ -74,7 +76,16 @@
     <p>Original Message: "{{ message }}"</p>
     <p>Reversed Message: "{{ reversedMessage }}"</p>
   </div>
+  <br>
 
+  <!-- watch example, great for when you want to decide when to do an api call or other expensive operation -->
+  <div id="watch-example">
+    <p>
+      Ask a yes/no question:
+      <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+  </div>
   <script>
     // text interpolation
     const app = new Vue({
@@ -165,6 +176,45 @@
       }
     })
 
+    // computed versus method properties: 
+    // Instead of a computed property, we can define the same function as a method instead. For the end result, the two approaches are indeed exactly the same. However, the difference is that computed properties are cached based on their dependencies. A computed property will only re-evaluate when some of its dependencies have changed. This means as long as message has not changed, multiple access to the reversedMessage computed property will immediately return the previously computed result without having to run the function again.
+
+
+    // While computed properties are more appropriate in most cases, there are times when a custom watcher is necessary. That’s why Vue provides a more generic way to react to data changes through the watch option. This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
+    const watchExample = new Vue({
+      el: '#watch-example',
+      data: {
+        question: '',
+        answer: 'I cannot give you the answer until you ask the question.'
+      },
+      // whenever the data changes this function will run
+      watch: { 
+        question: function(newQuestion, oldQuestion){
+          this.answer = 'Waiting for you to stop typing...';
+          this.getAnswer();
+        }
+      }, 
+      methods: {
+        getAnswer: _.debounce(
+          function(){
+            if (this.question.indexOf('?') === -1) {
+              this.answer = 'Questions usually contain a question mark.';
+              return;
+            }
+            this.answer = 'thinking...';
+            var vm = this;
+            axios.get('https://yesno.wtf/api')
+              .then(function(response){
+                vm.answer = _.capitalize(response.data.answer);
+              })
+              .catch(function(error){
+                vm.error = 'Could not reach the api: ' + error;
+              })
+          },
+          500
+        )
+      }
+    })
   </script>
 </body>
 </html>
