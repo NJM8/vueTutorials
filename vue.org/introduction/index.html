@@ -62,11 +62,11 @@
   <!-- creating your own custom reusable components -->
   <div id="app7">
     <ol>
-      <todo-item 
+      <todo-item-1 
         v-for="item in groceryList"
         v-bind:todo="item"
         v-bind:key="item.id">
-      </todo-item>
+      </todo-item-1>
     </ol>
   </div>
   <br>
@@ -86,6 +86,27 @@
     </p>
     <p>{{ answer }}</p>
   </div>
+  <br>
+
+  <!-- Todo app example using v-for v-on, components and methods -->
+  <div id="todoApp">
+    <input 
+      v-model="newTodoText"
+      v-on:keyup.enter="addNewTodo"
+      placeholder="Add a todo"  
+    >
+    <ul>
+      <li
+        is="todo-item-2"
+        v-for="(todo, index) in todos"
+        v-bind:key="todo.id"
+        v-bind:title="todo.title"
+        v-on:remove="todos.splice(index, 1)"
+      ></li>
+    </ul>
+  </div>
+  <br>
+
   <script>
     // text interpolation
     const app = new Vue({
@@ -146,7 +167,7 @@
     });
 
     // creating your own custom and reuseable components
-    Vue.component('todo-item', {
+    Vue.component('todo-item-1', {
       props: ['todo'],
       template: '<li> {{ todo.text }} </li>'
     });
@@ -214,7 +235,50 @@
           500
         )
       }
-    })
+    });
+
+    // todoApp
+    Vue.component('todo-item-2', {
+      template: '\
+        <li>\
+          {{ title }}\
+          <button v-on:click="$emit(\'remove\')">X</button>\
+        </li>\
+      ', 
+      props: ['title']
+    });
+
+    const todoApp = new Vue({
+      el: '#todoApp',
+      data: {
+        newTodoText: '',
+        todos: [
+          {
+            id: 1,
+            title: 'Do the dishes'
+          },
+          {
+            id: 2,
+            title: 'Take out the trash'
+          },
+          {
+            id: 3,
+            title: 'Mow the lawn'
+          }
+        ],
+        nextTodoId: 4
+      },
+      methods: {
+        addNewTodo: function(){
+          this.todos.push({
+            id: this.nextTodoId++,
+            title: this.newTodoText
+          });
+          this.newTodoText = '';
+        }
+      }
+    });
+
   </script>
 </body>
 </html>
