@@ -67,7 +67,13 @@
       </todo-item>
     </ol>
   </div>
+  <br>
 
+  <!-- using the computer property to perform a function on a piece of data before it gets sent to the DOM -->
+  <div id="app8">
+    <p>Original Message: "{{ message }}"</p>
+    <p>Reversed Message: "{{ reversedMessage }}"</p>
+  </div>
 
   <script>
     // text interpolation
@@ -142,6 +148,18 @@
           { id: 1, text: 'Cheese' },
           { id: 2, text: 'Steak' }
         ]
+      }
+    })
+
+    const app8 = new Vue({
+      el: '#app8',
+      data: {
+        message: 'Hello Vue'
+      },
+      computed: {
+        reversedMessage: function(){
+          return this.message.split('').reverse().join('');
+        }
       }
     })
 
