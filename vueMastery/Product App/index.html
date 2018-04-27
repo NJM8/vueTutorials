@@ -17,6 +17,7 @@
       </div>
       <div class="product-info">
         <h1>{{ title }}</h1>
+        <h3>{{ description }}</h3>
         <p v-if="inStock >= 10">In Stock</p>
         <p v-else-if="inStock < 10 && inStock > 0">Almost sold out</p>
         <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
@@ -31,16 +32,24 @@
           @mouseover="updateProduct(index)"
           >
         </div>
+        <div v-for="size in sizes">{{ size }}</div>
+        <h4 v-show="onSale">On Sale!</h4>
         <button 
           v-on:click="addToCart"
           :disabled="!inStock"
           :class="{ disabledButton: !inStock }"
           >Add to Cart</button>
+        <button 
+          v-on:click="removeFromCart"
+          :disabled="!inStock"
+          :class="{ disabledButton: !inStock }"
+          >Remove from Cart</button>
         <div class="cart">
           <p>Cart({{ cart }})</p>
         </div>
       </div>
     </div>
+    <a :href="creator" target="_blank" rel="noopener">Created by Nate Mallison</a>
   </div>
 
 
