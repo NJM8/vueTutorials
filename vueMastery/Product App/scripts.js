@@ -128,6 +128,7 @@ var app = new Vue({
       for (let i = 0; i < this.cart.length; i++) {
         if (this.cart[i] === id) {
           this.cart.splice(i, 1);
+          return;
         }
       }
     }
