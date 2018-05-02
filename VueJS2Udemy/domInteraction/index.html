@@ -54,6 +54,20 @@
     <input type="text" v-model="name">
     <p>Name: {{ name }} </p>
   </div>
+  <br>
+  <hr>
+  <div id="computedProps">
+    <!-- this is a great bit of reactivity but the result function is run everytime something changes elseware in the dom, if this is an expensive function, either computationally or time wise, this is not a great way to do things. Vue is unaware of the internals of the result() function and must run it everytime. -->
+    <button v-on:click="counter++">Increment</button>
+    <button v-on:click="counter--">Decrement</button>
+    <p>Counter: {{ counter }}</p>
+    <p>Result: {{ result() }}</p>
+    <!-- computed properties are the way to go here, Vue analizes the code and only runs the function when it sees a change that will affect the outcome of the computed function. The result is cached and the function will not run if it doesn't need to, note that computed does not run when incrementing first counter, but result does run when incrementing second counter-->
+    <button v-on:click="secondCounter++">Increment</button>
+    <button v-on:click="secondCounter--">Decrement</button>
+    <p>Counter: {{ secondCounter }}</p>
+    <p>Result: {{ secondResult }}</p>
+  </div>
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>
 </body>
