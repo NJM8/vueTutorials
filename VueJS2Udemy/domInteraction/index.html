@@ -62,11 +62,15 @@
     <button v-on:click="counter--">Decrement</button>
     <p>Counter: {{ counter }}</p>
     <p>Result: {{ result() }}</p>
-    <!-- computed properties are the way to go here, Vue analizes the code and only runs the function when it sees a change that will affect the outcome of the computed function. The result is cached and the function will not run if it doesn't need to, note that computed does not run when incrementing first counter, but result does run when incrementing second counter-->
+    <!-- computed properties are the way to go here, Vue analizes the code and only runs the function when it sees a change that will affect the outcome of the computed function. The result is cached and the function will not run if it doesn't need to, note that computed does not run when incrementing first counter, but result does run when incrementing second counter. Use computed props whenever you can.-->
     <button v-on:click="secondCounter++">Increment</button>
     <button v-on:click="secondCounter--">Decrement</button>
-    <p>Counter: {{ secondCounter }}</p>
+    <p>Second Counter: {{ secondCounter }}</p>
     <p>Result: {{ secondResult }}</p>
+    <!-- watch is great if you have an asynchronous function that needs to run. watch will keep and eye on whatever you tell it wot watch and will run the function when it sees the change. note watch functions usually do not return a value -->
+    <button v-on:click="thirdCounter++">Increment</button>
+    <button v-on:click="thirdCounter--">Decrement</button>
+    <p>Third Counter: {{ thirdCounter }}</p>
   </div>
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>

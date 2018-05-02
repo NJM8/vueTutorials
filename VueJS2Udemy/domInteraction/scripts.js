@@ -48,7 +48,8 @@ const computedProps = new Vue({
   el: '#computedProps',
   data: {
     counter: 0,
-    secondCounter: 0
+    secondCounter: 0,
+    thirdCounter: 0
   }, 
   methods: {
     result: function(){
@@ -60,6 +61,14 @@ const computedProps = new Vue({
     secondResult: function(){
       console.log('computed')
       return this.secondCounter > 5 ? 'Greater than 5' : 'Less than 5';
+    }
+  },
+  watch: {
+    thirdCounter: function(val){
+      var vm = this;
+      setTimeout(function(){
+        vm.thirdCounter = 0;
+      }, 2000);
     }
   }
 })
