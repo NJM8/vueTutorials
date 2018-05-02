@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue JS Dom Interaction</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div id="app">
     <!-- accessing app data with interpolation -->
     <p>{{ title }}</p>
@@ -71,6 +71,29 @@
     <button v-on:click="thirdCounter++">Increment</button>
     <button v-on:click="thirdCounter--">Decrement</button>
     <p>Third Counter: {{ thirdCounter }}</p>
+  </div>
+  <br>
+  <hr>
+  <div id="colors">
+    <!-- using vue to bind to css classes we can dynamically update the class, in this case we can use the vue bind and the regular class delcaration as vue will combine them behind the scenes. note the shorthand syntax for class and the click handler. when passing vue a class you need to pass it an object with the class you want to attach as the key and the value is weather or not you want to attach it. -->
+    <div class="demo" @click="attachRed = !attachRed" :class="{red: attachRed}"></div>
+    <div class="demo" @click="attachGreen = !attachGreen" :class="{green: attachGreen}"></div>
+    <div class="demo" @click="attachBlue = !attachBlue" :class="{blue: attachBlue}"></div>
+    <!-- you can also outsource the object being passed in to a computed property if it gets to be more complex -->
+    <div class="demo" @click="attachBlue = !attachBlue" :class="divClasses"></div>
+    <!-- here you can see how we can bind the color selection to a data property with input, you can also use an array of classes -->
+    <hr>
+    <p>Pick a color, red, blue or green.</p>
+    <label>Color:</label>
+    <input type="text" v-model="color">
+    <label>Width:</label>
+    <input type="text" v-model="width">
+    <div class="demo" :class="[color, {red: attachRed}]"></div>
+    <!-- or you can do it without classes to build your own style, nice use of computed properties, note how these do not change back to grey until red is all gone from the inputsleep -->
+    <div class="demo" :style="{backgroundColor: color}"></div>
+    <div class="demo" :style="myStyle"></div>
+    <!-- again we can use arrays to pass in multiple styles. bonus if you use the Vue :style directive to set your style Vue will automatically prefix your styles to support all browsers that Vue supports -->
+    <div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
   </div>
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>

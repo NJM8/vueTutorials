@@ -72,3 +72,28 @@ const computedProps = new Vue({
     }
   }
 })
+
+const colors = new Vue({
+  el: '#colors',
+  data: {
+    attachRed: false,
+    attachGreen: false,
+    attachBlue: false,
+    color: 'green',
+    width: 100
+  },
+  computed: {
+    divClasses: function(){
+      return {
+        red: !this.attachBlue,
+        blue: this.attachBlue
+      }
+    },
+    myStyle: function(){
+      return {
+        backgroundColor: this.color,
+        width: this.width + 'px'
+      }
+    }
+  }
+})
