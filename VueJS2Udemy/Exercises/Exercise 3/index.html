@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Exercise 3</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="exercise3">
+    <!-- 1) Show a "result" of 'not there yet' as long as "value" is not equal to 37 - you can change "value" with the buttons. Print 'done' once you did it -->
+    <div>
+      <p>Current Value: {{ value }}</p>
+      <button @click="value += 5">Add 5</button>
+      <button @click="value += 1">Add 1</button>
+      <p>{{ result }}</p>
+    </div>
+    <!-- 2) Watch for changes in the "result" and reset the "value" after 5 seconds (hint: setTimeout(..., 5000) -->
+    <div>
+      <label>Pick your delay:</label>
+      <input type="text" v-model="delay">
+      <p>{{ value }}</p>
+    </div>
+  </div>
+  <script>
+    const exercise3 = new Vue({
+      el: '#exercise3',
+      data: {
+        value: 0,
+        delay: 5000
+      },
+      computed: {
+        result: function(){
+          return this.value === 37 ? 'Done' : 'Not there yet';
+        }
+      },
+      watch: {
+        value: function(){
+          setTimeout(function(){
+            this.value = 0;
+          }.bind(this), this.delay);
+        }
+      }
+    })
+  </script>
+</body>
+</html>

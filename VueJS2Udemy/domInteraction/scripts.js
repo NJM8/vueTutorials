@@ -65,10 +65,10 @@ const computedProps = new Vue({
   },
   watch: {
     thirdCounter: function(val){
-      var vm = this;
+      // var vm = this;
       setTimeout(function(){
-        vm.thirdCounter = 0;
-      }, 2000);
+        this.thirdCounter = 0;
+      }.bind(this), 2000);
     }
   }
 })
