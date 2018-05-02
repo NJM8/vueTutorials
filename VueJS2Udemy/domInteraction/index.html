@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue JS Dom Interaction</title>
+</head>
+<body>
+
+  <div id="app">
+    <!-- accessing app data with interpolation -->
+    <p>{{ title }}</p>
+    <!-- using v-once prevents the continued updating of this render after the first one. -->
+    <p v-once>{{ title }}</p>
+    <!-- accessing method inside curly braces must return something that the dom can render, like a string -->
+    <p>{{ sayHello() }}</p>
+    <!-- note the below wil not work, you cannot use curly braces to access data inside an attribute, the HTML will try to parse the literal input -->
+    <a href="{{ link }}">Google</a>
+    <!-- instead use a v-bind directive, we pass a varible that we want to bind the data to, in this case href so we bind the value of link to the elements href attribute -->
+    <a v-bind:href="link">Google</a>
+    <!-- shorthand syntax is just a colon -->
+    <a :href="link">Google</a>
+    <!-- attempting to render html from the data will not work, Vue by default does not render html from data, this prevents XSS attacks and other confusion -->
+    <p>{{ finishedLink}}</p>
+    <!-- if you have a known good source of HTMl you want to render or you clean the input to this you can use the v-html directive to render HTML, be careful doing this with user input! -->
+    <p v-html="finishedLink"></p>
+  </div>
+
+
+  <script src="../vue.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
