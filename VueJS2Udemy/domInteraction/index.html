@@ -26,20 +26,27 @@
     <!-- if you have a known good source of HTMl you want to render or you clean the input to this you can use the v-html directive to render HTML, be careful doing this with user input! -->
     <p v-html="finishedLink"></p>
   </div>
-
+  <br>
+  <hr>
   <div id="events">
     <!-- we can also pass our own arguements along with an event arguement, $event is a reserved variable by Vue -->
-    <button v-on:click="incrementCounter(2, $event)">Add one</button>
+    <button v-on:click="incrementCounter(1, $event)">Add one</button>
     <p> {{ counter }} </p>
+     <!-- we can run any simple JavaScript in our vue connections, even ternary expressions, but no variables,  ifs or loops -->
+    <button v-on:click="counter += 2">Add Two</button>
+    <p>Times Two: {{ counter * 2 }} </p>
+    <p>Greater than 10? {{ counter > 10 ? 'Yes' : 'No' }} </p>
     <!-- you can use any event listener that would usually be available, mousemove, mouseup, mouseover, etc, etc -->
     <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} 
      <!-- event modifiers allow you to easily modify the event using things like .stop (stopPropagation()) or .prevent (preventDefault()), note that they can be chained -->
       - <span v-on:mousemove.stop="">Dead Spot</span>
     </p>
     <!-- a key modifyer can be used to only run the listener function when a certain key is activated -->
+    <p>Alert the input on enter</p>
     <input type="text" v-on:keyup.enter="alertMe">
   </div>
-
+  <br>
+  <hr>
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>
 </body>
