@@ -27,6 +27,18 @@
     <p v-html="finishedLink"></p>
   </div>
 
+  <div id="events">
+    <!-- we can also pass our own arguements along with an event arguement, $event is a reserved variable by Vue -->
+    <button v-on:click="incrementCounter(2, $event)">Add one</button>
+    <p> {{ counter }} </p>
+    <!-- you can use any event listener that would usually be available, mousemove, mouseup, mouseover, etc, etc -->
+    <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} 
+     <!-- event modifiers allow you to easily modify the event using things like .stop (stopPropagation()) or .prevent (preventDefault()), note that they can be chained -->
+      - <span v-on:mousemove.stop="">Dead Spot</span>
+    </p>
+    <!-- a key modifyer can be used to only run the listener function when a certain key is activated -->
+    <input type="text" v-on:keyup.enter="alertMe">
+  </div>
 
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>

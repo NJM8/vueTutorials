@@ -14,3 +14,25 @@ const app = new Vue({
     }
   }
 })
+
+const events = new Vue({
+  el: '#events',
+  data: {
+    counter: 0,
+    x: 0,
+    y: 0
+  }, 
+  methods: {
+    incrementCounter: function(step){
+      this.counter += step;
+    },
+    // we can pass in the event from v-on, behind the scene Vue passes the event back to the function specified in our event handler
+    updateCoordinates: function(event){
+      this.x = event.clientX;
+      this.y = event.clientY;
+    },
+    alertMe: function(){
+      alert('Alert!');
+    }
+  }
+})
