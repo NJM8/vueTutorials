@@ -36,3 +36,10 @@ const events = new Vue({
     }
   }
 })
+
+const twoWay = new Vue({
+  el: '#twoWay',
+  data: {
+    name: 'Nate'
+  }
+})

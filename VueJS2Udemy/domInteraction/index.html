@@ -47,6 +47,13 @@
   </div>
   <br>
   <hr>
+  <div id="twoWay">
+    <!-- simple two way data binding, note that the input is pre-populated with the data, vue uses the data as the first source -->
+    <p>Two way data binding example</p>
+    <label for="name">Type your name to see it below</label>
+    <input type="text" v-model="name">
+    <p>Name: {{ name }} </p>
+  </div>
   <script src="../vue.js"></script>
   <script src="scripts.js"></script>
 </body>
