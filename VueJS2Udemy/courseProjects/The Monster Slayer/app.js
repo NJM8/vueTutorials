@@ -33,16 +33,16 @@ const app = new Vue({
         this.attackCount = 0;
       }
 
-      let yourAttack = this.getRandVal();
+      let yourAttack = this.getRandVal(3, 10);
 
       if (special) {
-        yourAttack += this.getRandVal();
+        yourAttack += this.getRandVal(5, 10);
         this.specialAttacks -= 1;
       }
 
       if (heal) {
         this.heals -= 1;
-        yourAttack += 3;
+        yourAttack += this.getRandVal(5, 10);
         this.yourHealth += yourAttack;
         this.attackLog.unshift({'attacker': 'heal', 'value': yourAttack});
       } else {
@@ -50,13 +50,13 @@ const app = new Vue({
         this.attackLog.unshift({'attacker': 'you', 'value': yourAttack});
       }
 
-      const monsterAttack = this.getRandVal() + 2;
+      const monsterAttack = this.getRandVal(5, 12);
       this.yourHealth -= monsterAttack;
       this.attackLog.unshift({'attacker':'monster', 'value': monsterAttack});
       this.checkForGameEnd(false);
     },
-    getRandVal: function(){
-      return Math.floor(Math.random() * 9) + 1;
+    getRandVal: function(min, max){
+      return Math.max(Math.floor(Math.random() * max) + 1, min);
     },
     checkForGameEnd(quitting){
       if (this.yourHealth <= 0 || this.monsterHealth <= 0 || quitting) {
