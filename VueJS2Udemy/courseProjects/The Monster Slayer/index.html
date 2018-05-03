@@ -45,7 +45,7 @@
         <button id="give-up" @click="checkForGameEnd(true)">GIVE UP</button>
       </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-if="attackLog.length > 0">
       <div class="small-12 columns">
         <ul>
           <li v-for="attack in attackLog">
