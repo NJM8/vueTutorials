@@ -1,0 +1,74 @@
+#effect {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.highlight {
+  background-color: red;
+  width: 200px !important;
+}
+
+.shrink {
+  background-color: gray;
+  width: 50px !important;
+}
+
+.large {
+  width: 300px;
+  height: 150px;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: firebrick;
+}
+
+.round {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  background-color: turquoise;
+}
+
+.shadow {
+  width: 100px;
+  height: 100px;
+  background-color: coral;
+  box-shadow: 10px 5px 5px lightsalmon;
+}
+
+.squareAlt {
+  background-color: lemonchiffon;
+}
+
+.roundAlt {
+  background-color: indigo;
+}
+
+.shadowAlt {
+  background-color: hotpink;
+}
+
+.default {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.progressOuter {
+  width: 400px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.progressInner {
+  height: 20px;
+  width: 0px;
+  background-color: orangered;
+}
