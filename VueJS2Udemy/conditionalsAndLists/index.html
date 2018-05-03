@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Conditionals and Lists</title>
+</head>
+<body>
+  <div id="vif">
+    <!-- use v-if to conditionally render an element, note it is completely removed form the DOM id not shown -->
+    <p v-if="show">You can see me!</p>
+    <!-- v-else will do the opposite of the preceeding v-if and you can also use v-else-if with statements inside to create interesting effects -->
+    <p v-else>Now you see me!</p>
+    <!-- you can use the template element to group other elements together without the side effects of using a div. template does not get rendered -->
+    <template v-if="show">
+      <h1>Some Heading</h1>
+      <p>I'm inside the template</p>
+    </template>
+    <!-- use v-show if you want to keep the element in the DOM, v-show will just hide it with CSS -->
+    <p v-show="show">Do you also see me?</p>
+    <button @click="show = !show">Switch</button>
+  </div>
+  <hr>
+  <div id="vfor">
+    <ul>
+      <!-- you can use vfor to iterate over something and output the contents one by one, in the curly brackets you can still call a function on the iterable data or do anything else you can do in the brackets -->
+      <!-- you can add the index by adding parens and a second variable, the order is important, the names are not -->
+      <!-- behind the scene vue only tracks the index of the element, not it's value, so you need to add a key if you plan to move things around, that way vue will actually move the element itself and not just overwrite values -->
+      <li v-for="(ingredient, i) in ingredients" :key="ingredient"> {{ ingredient }} ({{ i }})</li>
+    </ul>
+    <!-- you can also use the template element here to loop over data and display things how you want -->
+    <template v-for="(ingredient, index) in ingredients">
+      <h1>{{ ingredient }}</h1>
+      <p>{{ index }}</p>
+    </template>
+    <!-- you can nest loops as well to access sub data -->
+    <ul>
+      <li v-for="person in persons">
+        <!-- again you can access the key and the value if it is an object, the order is important, naming is not -->
+        <div v-for="(value, key, index) in person">{{ key }}: {{ value }}, {{ index }} </div>
+      </li>
+    </ul>
+    <!-- also using loops to display sub data -->
+    <template v-for="person in persons">
+      <template v-for="(value, key) in person">
+        <p>{{ key }}: {{ value }} </p>
+      </template>
+    </template>
+    <!-- you can also just make a loop with numbers to do some work -->
+    <span v-for="n in 10">{{ n }}</span>
+  </div>
+  <script src="../vue.js"></script>
+  <script>
+    const vif = new Vue({
+      el: '#vif',
+      data: {
+        show: true
+      }
+    })
+
+    const vfor = new Vue({
+      el: '#vfor',
+      data: {
+        ingredients: ['meat', 'fruit', 'cookies'],
+        persons: [
+          {name: 'Max', age: 27, color: 'red'},
+          {name: 'Anna', age: 'unknown', color: 'blue'}
+        ]
+      }
+    })
+  </script>
+</body>
+</html>
