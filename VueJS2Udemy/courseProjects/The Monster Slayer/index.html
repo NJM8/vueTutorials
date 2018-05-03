@@ -39,19 +39,19 @@
     </section>
     <section class="row controls" v-else>
       <div class="small-12 columns">
-        <button id="attack" @click="attack(false, false)">ATTACK</button>
-        <button id="special-attack" @click="attack(true, false)">SPECIAL ATTACK {{ specialAttacks }} remain</button>
-        <button id="heal" @click="attack(false, true)">HEAL {{ heals }} remain</button>
-        <button id="give-up" @click="checkForGameEnd(true)">GIVE UP</button>
+        <button id="attack" @click="attack">ATTACK</button>
+        <button id="special-attack" @click="specialAttack">SPECIAL ATTACK {{ specialAttacks }} remain</button>
+        <button id="heal" @click="heal">HEAL {{ heals }} remain</button>
+        <button id="give-up" @click="quit">GIVE UP</button>
       </div>
     </section>
     <section class="row log" v-if="attackLog.length > 0">
       <div class="small-12 columns">
         <ul>
-          <li v-for="attack in attackLog">
-            <p v-if="attack['attacker'] === 'you'" class="player-turn">You attack Monster for {{ attack.value }}</p>
-            <p v-else-if="attack['attacker'] === 'heal'" class="player-turn">You heal yourself for {{ attack.value }}</p>
-            <p v-else class="monster-turn">Monster attacks You for {{ attack.value }}</p>
+          <li 
+            v-for="attack in attackLog"
+            :class="attack.isPlayer ? 'player-turn' : 'monster-turn'">
+            <p> {{ attack.message }} {{ attack.value }}</p>
           </li>
         </ul>
       </div>

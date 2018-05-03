@@ -4,81 +4,90 @@ const app = new Vue({
     yourHealth: 100,
     monsterHealth: 100,
     playing: false,
-    specialAttacks: 0,
     attackCount: 0,
-    attackLog: [],
-    heals: 0
+    specialAttacks: 0,
+    heals: 0,
+    attackLog: []
   },
   methods: {
     startGame: function(){
+      this.endGame(true);
       this.playing = true;
-      this.yourHealth = 100;
-      this.monsterHealth = 100;
-      this.specialAttacks = 0;
-      this.attackCount = 0;
-      this.attackLog = [];
     },
-    attack: function(special, heal){
-      if (heal && this.heals === 0 || special && this.specialAttacks === 0) {
+    attack: function(){
+      let yourAttack = this.getRandVal(3, 10);
+      this.monsterHealth -= yourAttack;
+      this.attackLog.unshift({message: `You attack Monster for ${yourAttack}`, isPlayer: true});
+      this.countRound();      
+      this.monsterAttack();
+    },
+    specialAttack: function(){
+      if (this.specialAttacks === 0) {
         return;
       }
-      
-      if (!special && !heal) {
-        this.attackCount += 1;
-      }
-
-      if (this.attackCount === 3) {
-        this.specialAttacks += 1;
-        this.heals += 1;
-        this.attackCount = 0;
-      }
-
-      let yourAttack = this.getRandVal(3, 10);
-
-      if (special) {
-        yourAttack += this.getRandVal(5, 10);
-        this.specialAttacks -= 1;
-      }
-
-      if (heal) {
-        this.heals -= 1;
-        yourAttack += this.getRandVal(5, 10);
-        this.yourHealth += yourAttack;
-        this.attackLog.unshift({'attacker': 'heal', 'value': yourAttack});
-      } else {
-        this.monsterHealth -= yourAttack;
-        this.attackLog.unshift({'attacker': 'you', 'value': yourAttack});
-      }
-
-      const monsterAttack = this.getRandVal(5, 12);
-      this.yourHealth -= monsterAttack;
-      this.attackLog.unshift({'attacker':'monster', 'value': monsterAttack});
+      let yourAttack = this.getRandVal(7, 20);
+      this.monsterHealth -= yourAttack;
+      this.attackLog.unshift({message: `You special attack Monster for ${yourAttack}`, isPlayer: true});
+      this.countRound('special');      
+      this.monsterAttack();
+    },
+    monsterAttack: function(){
+      const monsterDamage = this.getRandVal(5, 12);
+      this.yourHealth -= monsterDamage;
+      this.attackLog.unshift({message:`Monster attacks You for ${monsterDamage}`, isPlayer: false});
       this.checkForGameEnd(false);
+    },
+    heal: function(){
+      if (this.heals === 0) {
+        return;
+      }
+      let yourHeal = this.getRandVal(6, 15);
+      this.yourHealth += yourHeal;
+      this.attackLog.unshift({message: `You heal yourself for ${yourHeal}`, isPlayer: true});
+      this.countRound('heal');
+      this.monsterAttack();
+    },
+    countRound: function(type){
+      if (type) {
+        if (type === 'special') {
+          this.specialAttacks -= 1;
+        }
+        if (type === 'heal') {
+          this.heals -= 1;
+        }
+      } else {
+        this.attackCount++;
+        if (this.attackCount === 3) {
+          this.specialAttacks++;
+          this.heals++;
+          this.attackCount = 0;
+        }
+      }
     },
     getRandVal: function(min, max){
       return Math.max(Math.floor(Math.random() * max) + 1, min);
     },
-    checkForGameEnd(quitting){
-      if (this.yourHealth <= 0 || this.monsterHealth <= 0 || quitting) {
-        let msg = '';
-        if (!quitting) {
-          const winner = this.yourHealth < this.monsterHealth ? 'Monster' : 'You';
-          msg = `Game Over, the winner is ${winner}!\n Hit ok to start a new game or cancel to review the fight.`;
-        } else {
-          msg = 'We will remember you in the quitters hall of fame!\n Hit ok to start a new game or cancel to review the fight.';
-        }
-        let input = confirm(msg);
-        if (!input) {
-          this.playing = false;
-        } else {
-          this.playing = false;
-          this.yourHealth = 100;
-          this.monsterHealth = 100;
-          this.specialAttacks = 0;
-          this.attackCount = 0;
-          this.attackLog = [];
-        }
+    checkForGameEnd(){
+      if (this.yourHealth <= 0 || this.monsterHealth <= 0) {
+        const winner = this.yourHealth < this.monsterHealth ? 'Monster' : 'You';
+        let choice = confirm(`Game Over, the winner is ${winner}!\n Hit ok to start a new game or cancel to review the fight.`);
+        this.endGame(choice);
       }
+    },
+    quit: function(){
+      let choice = confirm('We will remember you in the quitters hall of fame!\n Hit ok to start a new game or cancel to review the fight.');
+      this.endGame(choice);
+    },
+    endGame: function(choice){
+      if (choice) {
+        this.yourHealth = 100;
+        this.monsterHealth = 100;
+        this.specialAttacks = 0;
+        this.heals = 0;
+        this.attackCount = 0;
+        this.attackLog = [];
+      }
+      this.playing = false;
     }
   }
 })
