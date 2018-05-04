@@ -55,7 +55,7 @@ const app2 = new Vue({
   }
 });
 
-// here we can manually mount the app instance onto an element in the DOM, this does the same as the el property 
+// here we can manually mount the app instance onto an element in the DOM, this does the same as the el property. very useful in the case of setting up your vue instance before knowing where you want to put it, or maybe the element hasn't been created yet.
 app1.$mount('#app1');
 
 let outside = document.querySelector('#outside');
@@ -77,7 +77,11 @@ app1.$refs.heading.childNodes[0].data = 'Ho There!';
 // the below is what is used in the course, the above is what is needed to get it to work in firefox, not sure why this is: https://github.com/vuejs/vue/issues/7803
 // app1.$refs.heading.innerText = 'Ho There!';
 
+const app3 = new Vue({
+  template: `<p>Hello from app 3</p>`
+})
 
+app3.$mount('#app3');
 
 
 
