@@ -8,8 +8,11 @@
   <script src="../vue.js"></script>
 </head>
 <body>
+  <!-- using a basic component, a reusable block that we can place inside any other vue instance. note the below doesn't work but inside app 1 it does -->
+  <hello></hello>
   <!-- it is prefectly ok to run two instances in the same app -->
   <div id="app1">
+    <hello></hello>
     <h1 ref="heading">{{ title }}</h1>
     <!-- you can use refs, a vue property, to control what an element is referred to in the Vue instances refs object. All of the native JS options are available there. -->
     <button v-on:click="show" ref="myButton">Show Paragraph</button>
@@ -25,7 +28,7 @@
   <!-- or you an affect the instance from outside it with vanilla js, again not really a good idea -->
   <button id="outside">You can also affect the instance from outside with vanilla JS.</button>
   <div id="app3">
-    
+
   </div>
   <script src="app.js"></script>
 </body>

@@ -1,3 +1,8 @@
+Vue.component('hello', {
+  template: `<p>Hello from component</p>`
+})
+
+
 const app1 = new Vue({
   data: {
     title: 'The First VueJS Instance',
@@ -77,11 +82,13 @@ app1.$refs.heading.childNodes[0].data = 'Ho There!';
 // the below is what is used in the course, the above is what is needed to get it to work in firefox, not sure why this is: https://github.com/vuejs/vue/issues/7803
 // app1.$refs.heading.innerText = 'Ho There!';
 
+// example of using a template in the Vue instance to generate the 
 const app3 = new Vue({
   template: `<p>Hello from app 3</p>`
 })
 
 app3.$mount('#app3');
+
 
 
 
