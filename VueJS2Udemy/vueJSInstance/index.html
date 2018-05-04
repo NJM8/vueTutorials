@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue JS Instance</title>
+  <script src="../vue.js"></script>
+</head>
+<body>
+  <!-- it is prefectly ok to run two instances in the same app -->
+  <div id="app1">
+    <h1 ref="heading">{{ title }}</h1>
+    <!-- you can use refs, a vue property, to control what an element is referred to in the Vue instances refs object. All of the native JS options are available there. -->
+    <button v-on:click="show" ref="myButton">Show Paragraph</button>
+    <p v-if="showParagraph">This is not always visible</p>
+  </div>
+  <div id="app2">
+    <h1 ref="heading">{{ title }}</h1>
+    <button v-on:click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is not always visible</p>
+    <!-- You can also affect the other instances but this is not recommended as it will make tracking changes difficult -->
+    <button @click="changeOther">Change Other</button>
+  </div>
+  <!-- or you an affect the instance from outside it with vanilla js, again not really a good idea -->
+  <button id="outside">You can also affect the instance from outside with vanilla JS.</button>
+  <script src="app.js"></script>
+</body>
+</html>
