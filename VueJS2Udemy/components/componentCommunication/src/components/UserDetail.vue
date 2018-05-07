@@ -3,7 +3,10 @@
     <h3>You may view the User Details here</h3>
     <p>Many Details</p>
     <p>User name: {{ switchName() }}</p>
+    <p>User age: {{ userAge }}</p>
+    <!-- here we use a custom event to emit the name change back up the parent -->
     <button @click="resetName">Reset name from child</button>
+    <!-- here the function execution is made available to the child and executed as a callback -->
     <button @click="resetFn()">Reset name from parent</button>
   </div>
 </template>
@@ -15,6 +18,9 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    userAge: {
+      type: Number
     },
     resetFn: Function
   },
