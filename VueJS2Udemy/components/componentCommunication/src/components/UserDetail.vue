@@ -3,7 +3,8 @@
     <h3>You may view the User Details here</h3>
     <p>Many Details</p>
     <p>User name: {{ switchName() }}</p>
-    <button @click="resetName">Reset name</button>
+    <button @click="resetName">Reset name from child</button>
+    <button @click="resetFn()">Reset name from parent</button>
   </div>
 </template>
 
@@ -14,7 +15,8 @@ export default {
     name: {
       type: String,
       required: true
-    }
+    },
+    resetFn: Function
   },
   methods: {
     switchName: function(){
