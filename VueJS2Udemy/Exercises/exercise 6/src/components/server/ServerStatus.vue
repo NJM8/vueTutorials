@@ -1,5 +1,5 @@
 <template>
-    <li>Server #{{ server  }}</li>
+    <li class="list-group-item">Server #{{ server  }}</li>
 </template>
 
 <script>
