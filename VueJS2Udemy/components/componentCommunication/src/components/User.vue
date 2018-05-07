@@ -17,7 +17,7 @@
       <div class="col-xs-12 col-sm-6">
         <app-user-edit 
           :userAge="age"
-          @ageWasEdited="age = $event"></app-user-edit>
+          ></app-user-edit>
       </div>
     </div>
   </div>
@@ -26,6 +26,7 @@
 <script>
 import UserDetail from "./UserDetail.vue";
 import UserEdit from "./UserEdit.vue";
+import { eventBus } from '../main';
 
 export default {
   data: function(){
@@ -45,6 +46,11 @@ export default {
   components: {
     appUserDetail: UserDetail,
     appUserEdit: UserEdit
+  },
+  created(){
+    eventBus.$on('ageWasEdited', (age) => {
+      this.age = age;
+    })
   }
 };
 </script>
