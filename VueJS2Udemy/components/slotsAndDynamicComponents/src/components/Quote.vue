@@ -16,14 +16,13 @@
   }
 </script>
 
-<style>
+<style scoped>
 div {
   border: 1px solid slategray;
   box-shadow: 1px 1px 2px #42b983;
   padding: 30px;
   margin: 30px auto;
   text-align: center;
-  width: 65%;
 }
 /* note that styling is overwritten here */
 h2 {
