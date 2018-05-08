@@ -1,8 +1,8 @@
 <template>
   <app-quote>
     <!-- this html will get passed to the app-quote for rendering using a slot, now you can set the data on the elements here -->
-    <h2>{{ title }}</h2>
-    <p>A Quote</p>
+    <h2 slot="title">{{ title }}</h2>
+    <p slot="content">A Quote</p>
   </app-quote>
 </template>
 

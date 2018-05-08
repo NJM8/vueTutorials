@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- using slot to pass in html from the parent element -->
-    <slot></slot>
+    <slot name="title" class="title"></slot>
+    <hr>
+    <slot name="content"></slot>
   </div>
 </template>
 
@@ -23,6 +25,10 @@ div {
 /* note that styling is overwritten here */
 h2 {
   color: #42b983;
+}
+
+.title {
+  font-style: italic;
 }
 </style>
 
