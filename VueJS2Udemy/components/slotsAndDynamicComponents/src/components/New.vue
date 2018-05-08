@@ -12,6 +12,9 @@
       return {
         counter: 0
       }
+    },
+    destroyed(){
+      console.log('New was destroyed');
     }
   }
 </script>

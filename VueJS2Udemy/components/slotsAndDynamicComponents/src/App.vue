@@ -6,11 +6,14 @@
       <button class="btn btn-primary" @click="selectedComponent='app-new'">New</button>
       <button class="btn btn-primary" @click="selectedComponent='app-author'">Author</button>
       <hr>
-      <component :is="selectedComponent">
-        <!-- this html will get passed to the app-quote for rendering using a slot, now you can set the data on the elements here -->
-        <h2 slot="title">{{ title }}</h2>
-        <p>A Quote</p>
-      </component>
+      <!-- keep alive will prevent dynamic components from being destroyed when switching views -->
+      <keep-alive>
+        <component :is="selectedComponent">
+          <!-- this html will get passed to the app-quote for rendering using a slot, now you can set the data on the elements here -->
+          <h2 slot="title">{{ title }}</h2>
+          <p>A Quote</p>
+        </component>
+      </keep-alive>
     </div>
   </div>
 </div>
