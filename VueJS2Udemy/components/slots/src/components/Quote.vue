@@ -3,7 +3,10 @@
     <!-- using slot to pass in html from the parent element -->
     <slot name="title" class="title"></slot>
     <hr>
-    <slot name="content"></slot>
+    <!-- a default slot that will always pass in unnamed slots -->
+    <slot></slot>
+    <!-- a slot with default content if it does not receive any html -->
+    <span><slot name="details">Quote Details</slot></span>
   </div>
 </template>
 
