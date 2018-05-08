@@ -5,9 +5,9 @@
     <p>Server: {{ id }}</p>
     <p>Status: {{ status }}</p>
     <h5>Set Server Status:</h5>
-    <button>Normal</button>
-    <button>Critical</button>
-    <button>Unknown</button>
+    <button @click="setServerStatus($event.target.textContent)">Normal</button>
+    <button @click="setServerStatus($event.target.textContent)">Critical</button>
+    <button @click="setServerStatus($event.target.textContent)">Unknown</button>
   </div>
 </template>
 
@@ -23,7 +23,10 @@ export default {
     };
   },
   methods: {
-    setServerStatus() {}
+    setServerStatus(status){
+      this.status = status;
+      eventBus.changeStatus(this.id, this.status);
+    }
   },
   created() {
     eventBus.$on("showServer", (server) => {

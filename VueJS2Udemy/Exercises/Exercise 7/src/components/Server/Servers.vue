@@ -31,6 +31,15 @@
       displayServer(id, status){
         eventBus.showServer(id, status);
       }
+    },
+    created(){
+      eventBus.$on('updateStatus', (update) => {
+        this.servers.forEach(server => {
+          if (server.id === update.id) {
+            server.status = update.status;
+          }
+        })
+      })
     }
   }
 </script>
