@@ -15,6 +15,13 @@
     },
     destroyed(){
       console.log('New was destroyed');
+    }, 
+    // if you still want to dynamically change content when moving between components you can actived and deactivated life cycle hooks
+    activated(){
+      console.log('New was activated');
+    },
+    deactivated(){
+      console.log('New was deactivated');
     }
   }
 </script>
