@@ -1,5 +1,5 @@
 <template>
-  <div class="quote" @click="$emit('deleteQuote')">
+  <div class="quote">
     <slot name="quote"></slot>
   </div>
 </template>

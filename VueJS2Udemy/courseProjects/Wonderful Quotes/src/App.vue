@@ -14,7 +14,7 @@
       <div class="row">
         <h3 class="text-center">My Quotes:</h3>
         <div class="quoteContainer">
-          <quote-display v-for="quote in quotes" :key="quote.id" @deleteQuote="deleteQuote(quote.id)" :id="quote.id">
+          <quote-display v-for="quote in quotes" :key="quote.id" @click.native="deleteQuote(quote.id)" :id="quote.id">
             <p slot="quote" class="content">{{ quote.content }}</p>
           </quote-display>
         </div>
@@ -50,7 +50,6 @@ export default {
       this.nextQuoteId++;
     },
     deleteQuote(id){
-      console.log(id);
       this.nextQuoteId--;
       this.quotes.forEach((quote, index) => {
         if (quote.id === id) {
