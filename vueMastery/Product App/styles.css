@@ -81,3 +81,8 @@ textarea {
 .outOfStock {
   text-decoration: line-through;
 }
+
+.activeTab {
+  text-decoration: underline;
+  color: #16C0B0;
+}
