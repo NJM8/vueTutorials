@@ -9,8 +9,9 @@ import App from './App.vue'
 // unbind(el, binding, vnode): fires once directive is removed
 
 Vue.directive('highlight', {
-  bind(el){
-    el.style.backgroundColor = '#42b883'
+  bind(el, binding){
+    // el.style.backgroundColor = '#42b883'
+    el.style.backgroundColor = binding.value;
   }
 })
 
