@@ -9,18 +9,20 @@
                 <ul>
                   <li v-for="fruit in filteredFruits" :key="fruit">{{ fruit }}</li>
                 </ul>
+                <app-list></app-list>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import List from './List.vue'
+import { fruitMixin } from './fruitMixin'
+
     export default {
       data(){
         return {
           text: 'Hello Vue!',
-          fruits: ['Apple', 'Banana', 'Mango', 'Blueberries'],
-          filterText: ''
         }
       },
       // note that filters can only be run on re-rendering of the DOM
@@ -30,13 +32,17 @@
         }
       },
       // a better choice can be computed props 
-      computed: {
-        filteredFruits(){
-          return this.fruits.filter(element => {
-            return element.match(this.filterText);
-          });
-        }
-      }
+      // computed: {
+      //   filteredFruits(){
+      //     return this.fruits.filter(element => {
+      //       return element.match(this.filterText);
+      //     });
+      //   }
+      // },
+      components: {
+        'app-list': List
+      },
+      mixins: [fruitMixin]
     }
 </script>
 
