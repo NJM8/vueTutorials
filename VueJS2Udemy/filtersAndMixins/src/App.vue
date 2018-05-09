@@ -22,7 +22,7 @@ import { fruitMixin } from './fruitMixin'
     export default {
       data(){
         return {
-          text: 'Hello Vue!',
+          text: 'Hello Vue!'
         }
       },
       // note that filters can only be run on re-rendering of the DOM
@@ -42,6 +42,7 @@ import { fruitMixin } from './fruitMixin'
       components: {
         'app-list': List
       },
+      // note that mixins are added to existing data and methods, nothing from the original is destroyed, if data already exists on the sft it will use that data.
       mixins: [fruitMixin]
     }
 </script>
