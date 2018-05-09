@@ -99,7 +99,17 @@ Vue.component('product', {
     <div class="product-info">
       <h1>{{ title }}</h1>
       <h3>{{ description }}</h3>
-      <productDetails :details="details"></productDetails>
+      <div>
+        <span class="tab"
+        :class="{activeTab: selectedTab === tab}"
+        v-for="(tab, index) in tabs"
+        :key="index"
+        @click="selectedTab = tab">
+        {{ tab }}
+        </span>
+      </div>
+      <productDetails :details="details" v-show="selectedTab === 'Details'"></productDetails>
+      <p v-show="selectedTab === 'Shipping'">Shipping: {{ shipping }}</p>      
       <p v-if="inStock >= 10">In Stock</p>
       <p v-else-if="inStock < 10 && inStock > 0">Almost sold out</p>
       <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
@@ -113,7 +123,6 @@ Vue.component('product', {
       </div>
       <div v-for="size in sizes">{{ size }}</div>
       <h4 v-show="onSale">On Sale!</h4>
-      <p>Shipping: {{ shipping }}</p>
       <button 
         v-on:click="addToCart"
         :disabled="!inStock"
@@ -150,7 +159,9 @@ Vue.component('product', {
         }
       ],
       sizes: ['small', 'medium', 'large'],
-      reviews: []
+      reviews: [],
+      tabs: ['Details', 'Shipping'],
+      selectedTab: 'Details'
     } 
   },
   methods: {
