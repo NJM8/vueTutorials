@@ -5,6 +5,8 @@
                 <h1>Filters & Mixins</h1>
                 <p>{{ text | toUppercase | to-lowercase }}</p>
                 <hr>
+                <!-- note that mixins give you a different copy of each of the data in a mixin everytime you use it. if you need globally shared data put it in the main instance and use a bus or import a normal JS object, not a mixin -->
+                <button @click="fruits.push('Berries')">Add Berries</button>
                 <input v-model="filterText">
                 <ul>
                   <li v-for="fruit in filteredFruits" :key="fruit">{{ fruit }}</li>
