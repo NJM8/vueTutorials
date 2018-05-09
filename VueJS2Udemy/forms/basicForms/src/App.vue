@@ -7,11 +7,13 @@
                     <hr>
                     <div class="form-group">
                         <label for="email">Mail</label>
+                        <!-- below you can see what v-model is doing behind the scene, it is the same as using :value to bind the data to the output and v-on:input to bind the input to the data -->
                         <input
                                 type="text"
                                 id="email"
                                 class="form-control"
-                                v-model="userData.email">
+                                v-bind:value="userData.email"
+                                v-on:input="userData.email = $event.target.value">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -101,6 +103,11 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <app-switch v-model="dataSwitch"></app-switch>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                     <button
                             class="btn btn-primary">Submit!
                     </button>
@@ -125,7 +132,7 @@
                         </ul>
                         <p>Gender: {{ gender }}</p>
                         <p>Priority: {{ selectedPriority }}</p>
-                        <p>Switched:</p>
+                        <p>Switched: {{ dataSwitch }}</p>
                     </div>
                 </div>
             </div>
@@ -134,22 +141,28 @@
 </template>
 
 <script>
-    export default {
-      data(){
-        return {
-          userData: {
-            email: '',
-            password: '',
-            age: 27
-          },
-          message: 'Tell us what you think',
-          sendMail: [],
-          gender: 'Male',
-          priorities: ['High', 'Medium', 'Low'],
-          selectedPriority: 'High'
-        }
+  import Switch from './Switch.vue'
+
+  export default {
+    data(){
+      return {
+        userData: {
+          email: '',
+          password: '',
+          age: 27
+        },
+        message: 'Tell us what you think',
+        sendMail: [],
+        gender: 'Male',
+        priorities: ['High', 'Medium', 'Low'],
+        selectedPriority: 'High',
+        dataSwitch: true
       }
+    },
+    components: {
+      'app-switch': Switch
     }
+  }
 </script>
 
 <style>
