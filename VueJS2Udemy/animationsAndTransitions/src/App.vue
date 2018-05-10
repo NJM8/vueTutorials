@@ -71,17 +71,28 @@ export default {
       show: true,
       showMulti: true,
       alertAnimation: 'fade',
-      load: true
+      load: true,
+      elementWidth: 100
     };
   },
   methods: {
     beforeEnter(el){
-      console.log('beforeEnter')
+      console.log('beforeEnter');
+      this.elementWidth = 100;
+      el.style.width = this.elementWidth + 'px';
     },
     enter(el, done){
       console.log('enter');
-      // the done function tells Vue JS when this is done running, you must do this as it cannot sniff the JS like it can the CSS
-      done();
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.width = (this.elementWidth + round * 10) + 'px';
+        round++;
+        if (round > 20) {
+          clearInterval(interval);
+          // the done function tells Vue JS when this is done running, you must do this as it cannot sniff the JS like it can the CSS
+          done();
+        }
+      }, 20);
     },
     afterEnter(el){
       console.log('afterEnter');
@@ -90,12 +101,23 @@ export default {
       console.log('enterCancelled');
     },
     beforeLeave(el){
-      console.log('beforeLeave')
+      this.elementWidth = 300;
+      el.style.width = this.elementWidth + 'px';
+      console.log('beforeLeave');
     },
     leave(el, done){
       console.log('leave');
       // the done function tells Vue JS when this is done running, you must do this as it cannot sniff the JS like it can the CSS
-      done();
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.width = (this.elementWidth - round * 10) + 'px';
+        round++;
+        if (round > 20) {
+          clearInterval(interval);
+          // the done function tells Vue JS when this is done running, you must do this as it cannot sniff the JS like it can the CSS
+          done();
+        }
+      }, 20);
     },
     afterLeave(el){
       console.log('afterLeave');
@@ -109,7 +131,7 @@ export default {
 
 <style>
 .myDiv {
-  width: 100px; 
+  width: 300px; 
   height: 100px; 
   background-color: #42b883;
   border: 1px solid #35495e;
