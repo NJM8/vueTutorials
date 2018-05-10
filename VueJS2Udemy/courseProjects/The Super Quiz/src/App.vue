@@ -51,7 +51,7 @@ export default {
 
 <style>
 .flip-enter {
-  transform: rotateY(-90deg);
+  transform: rotateY(90deg);
 }
 .flip-enter-active {
   transition: all 500ms ease;
