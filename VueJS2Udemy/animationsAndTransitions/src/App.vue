@@ -65,6 +65,13 @@
         <transition name="fade" mode="out-in">
           <component :is="selectedCmp"></component>
         </transition>
+        <hr>
+        <h1>Transition Group</h1>
+        <button class="btn btn-primary" @click="addItem">Add Item</button>
+        <br><br>
+        <transition-group tag="ul" class="list-group" name="slide">
+          <li class="list-group-item" v-for="(num, i) in numbers" :key="num" @click="removeItem(i)" style="cursor: pointer;">{{ num }}</li>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -82,7 +89,8 @@ export default {
       alertAnimation: 'fade',
       load: true,
       elementWidth: 100,
-      selectedCmp: 'app-success-alert'
+      selectedCmp: 'app-success-alert',
+      numbers: [1,2,3,4,5]
     };
   },
   methods: {
@@ -137,6 +145,13 @@ export default {
     },
     swapComponents(){
       this.selectedCmp === 'app-success-alert' ? this.selectedCmp = 'app-danger-alert' : this.selectedCmp = 'app-success-alert';
+    },
+    addItem(){
+      const pos = Math.floor(Math.random() * this.numbers.length);
+      this.numbers.splice(pos, 0, Math.max(...this.numbers, 0) + 1);
+    },
+    removeItem(index){
+      this.numbers.splice(index, 1);
     }
   },
   components: {
@@ -189,6 +204,12 @@ export default {
   animation: slide-out 700ms ease-out forwards;
   transition: opacity 1s;
   opacity: 0;
+  /* this is needed to allow the other elements to animate around this one when it leaves */
+  position: absolute;
+}
+/* move is used on other elements when they need to move because of other changes in the group */
+.slide-move {
+  transition: transform 1s;
 }
 
 @keyframes slide-in {
