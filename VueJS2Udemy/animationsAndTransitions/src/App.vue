@@ -59,20 +59,30 @@
           >  
           <div class="myDiv" v-if="load"></div>
         </transition>
+        <hr>
+        <button class="btn btn-primary" @click="swapComponents">Toggle Components</button>
+        <br><br>
+        <transition name="fade" mode="out-in">
+          <component :is="selectedCmp"></component>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import DangerAlert from './DangerAlert'; 
+import SuccessAlert from './SuccessAlert'; 
+
 export default {
   data(){
     return {
-      show: true,
+      show: false,
       showMulti: true,
       alertAnimation: 'fade',
       load: true,
-      elementWidth: 100
+      elementWidth: 100,
+      selectedCmp: 'app-success-alert'
     };
   },
   methods: {
@@ -124,7 +134,14 @@ export default {
     },
     leaveCancelled(el){
       console.log('leaveCancelled');
+    },
+    swapComponents(){
+      this.selectedCmp === 'app-success-alert' ? this.selectedCmp = 'app-danger-alert' : this.selectedCmp = 'app-success-alert';
     }
+  },
+  components: {
+    'app-danger-alert': DangerAlert,
+    'app-success-alert': SuccessAlert
   }
 };
 </script>
