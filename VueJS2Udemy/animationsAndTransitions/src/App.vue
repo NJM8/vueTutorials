@@ -7,9 +7,18 @@
         <button class="btn btn-primary" @click="show = !show">Show Alert</button>
         <br><br>
         <transition name="fade">
+          <div class="alert alert-info" v-show="show">This is some Info</div>
+        </transition>
+        <!-- here since we are using animation and transition you can add the type property to tell VueJS which one dictates the length of the animations/tranistions. this way the element is removed after the time specified in what you tell it, otherwise it uses the longest length  -->
+        <transition name="slide" type="animation">
           <div class="alert alert-info" v-if="show">This is some Info</div>
         </transition>
-        <transition name="slide">
+        <!-- appear will run the animation during the initial loading -->
+        <!-- you can also specify your own classes to use for the enter and leave classes, this allows you to use something like the animate css library very easily -->
+        <transition 
+          enter-active-class="animated bounce"
+          leave-active-class="animated shake" 
+          appear>
           <div class="alert alert-info" v-if="show">This is some Info</div>
         </transition>
       </div>
@@ -48,9 +57,11 @@ export default {
 }
 
 .slide-enter {
+  opacity: 0;
   /* no initial state is needed as it is set up by the keyframe */
 }
 .slide-enter-active {
+  transition: opacity 500ms;
   animation: slide-in 700ms ease-out forwards;
 }
 .slide-leave {
@@ -58,6 +69,8 @@ export default {
 }
 .slide-leave-active {
   animation: slide-out 700ms ease-out forwards;
+  transition: opacity 3s;
+  opacity: 0;
 }
 
 @keyframes slide-in {
