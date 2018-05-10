@@ -8,9 +8,11 @@
     <hr>
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-        <keep-alive>
-          <component :is="mode" @answered="answered($event)" @confirmed="mode = 'app-question'" :keepData="keepData"></component>
-        </keep-alive>
+        <transition name="flip" mode="out-in">
+          <keep-alive>
+            <component :is="mode" @answered="answered($event)" @confirmed="mode = 'app-question'" :keepData="keepData"></component>
+          </keep-alive>
+        </transition>
       </div>
     </div>
   </div>
@@ -46,4 +48,18 @@ export default {
   }
 };
 </script>
+
+<style>
+.flip-enter {
+  transform: rotateY(-90deg);
+}
+.flip-enter-active {
+  transition: all 500ms ease;
+}
+.flip-leave-active {
+  transition: all 500ms ease;
+  transform: rotateY(90deg);
+}
+</style>
+
 
