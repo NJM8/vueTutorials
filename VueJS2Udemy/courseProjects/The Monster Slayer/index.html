@@ -32,28 +32,31 @@
         </div>
       </div>
     </section>
-    <section class="row controls" v-if="!playing">
-      <div class="small-12 columns">
-        <button id="start-game" @click="startGame">START NEW GAME</button>
-      </div>
-    </section>
-    <section class="row controls" v-else>
-      <div class="small-12 columns">
-        <button id="attack" @click="attack">ATTACK</button>
-        <button id="special-attack" @click="specialAttack">SPECIAL ATTACK {{ specialAttacks }} remain</button>
-        <button id="heal" @click="heal">HEAL {{ heals }} remain</button>
-        <button id="give-up" @click="quit">GIVE UP</button>
-      </div>
-    </section>
+    <transition name="slide" mode="out-in">
+      <section class="row controls" v-if="!playing" :key="notPlaying">
+        <div class="small-12 columns">
+          <button id="start-game" @click="startGame">START NEW GAME</button>
+        </div>
+      </section>
+      <section class="row controls" v-else :key="playing">
+        <div class="small-12 columns">
+          <button id="attack" @click="attack">ATTACK</button>
+          <button id="special-attack" @click="specialAttack">SPECIAL ATTACK {{ specialAttacks }} remain</button>
+          <button id="heal" @click="heal">HEAL {{ heals }} remain</button>
+          <button id="give-up" @click="quit">GIVE UP</button>
+        </div>
+      </section>
+    </transition>
     <section class="row log" v-if="attackLog.length > 0">
       <div class="small-12 columns">
-        <ul>
+        <transition-group name="fade" tag="ul">
           <li 
-            v-for="attack in attackLog"
-            :class="attack.isPlayer ? 'player-turn' : 'monster-turn'">
-            <p> {{ attack.message }} {{ attack.value }}</p>
+            v-for="(attack, index) in attackLog"
+            :class="attack.isPlayer ? 'player-turn' : 'monster-turn'"
+            :key="index">
+            {{ attack.message }} {{ attack.value }}
           </li>
-        </ul>
+        </transition-group>
       </div>
     </section>
   </div>
