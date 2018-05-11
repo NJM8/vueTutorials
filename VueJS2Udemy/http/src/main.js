@@ -4,7 +4,7 @@ import App from './App.vue'
 
 Vue.use(VueResource);
 // optional way to direct all requests to this route, then whatever is on the reqest will be appended
-Vue.http.options.root = "https://httpwithvueresource.firebaseio.com/data.json";
+Vue.http.options.root = "https://httpwithvueresource.firebaseio.com/";
 // here is how we can intercept requests, note that on firebase put will overwrite the data at the url
 Vue.http.interceptors.push((request, next) => {
   if (request.method === 'POST') {

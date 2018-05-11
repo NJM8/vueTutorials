@@ -37,20 +37,24 @@
             username: '',
             email: '',
           },
-          users: []
+          users: [],
+          resource: {}
         }
       },
       methods: {
         submit(){
-          this.$http.post('', this.user)
-            .then(res => {
-              console.log(res);
-            }, error => {
-              console.log(error);
-            })
+          // this.$http.post('data.json', this.user)
+          //   .then(res => {
+          //     console.log(res);
+          //   }, error => {
+          //     console.log(error);
+          //   })
+          // this.resource.save({}, this.user);
+          this.resource.saveAlt(this.user);
+          this.resetData();
         },
         fetchData(){
-          this.$http.get('')
+          this.$http.get('data.json')
             .then(res => {
               return res.json();
             })
@@ -61,7 +65,17 @@
               }
               this.users = resArray;
             })
+        },
+        resetData(){
+          this.user.username = '';
+          this.user.email = '';
         }
+      },
+      created(){
+        const customActions = {
+          saveAlt: { method: 'POST', url: 'alternative.json'}
+        }
+        this.resource = this.$resource('data.json', {}, customActions);
       }
     }
 </script>
