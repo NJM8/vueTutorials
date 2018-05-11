@@ -104,7 +104,7 @@ button {
   opacity: 0;
 }
 .fade-move {
-  transition: all 1s;
+  transition: all .4s;
 }
 
 .slide-enter {

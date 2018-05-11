@@ -7,7 +7,8 @@ const app = new Vue({
     attackCount: 0,
     specialAttacks: 0,
     heals: 0,
-    attackLog: []
+    attackLog: [],
+    attackId: 0
   },
   methods: {
     startGame: function(){
@@ -17,7 +18,7 @@ const app = new Vue({
     attack: function(){
       let yourAttack = this.getRandVal(3, 10);
       this.monsterHealth -= yourAttack;
-      this.attackLog.unshift({message: `You attack Monster for ${yourAttack}`, isPlayer: true});
+      this.attackLog.unshift({message: `You attack Monster for ${yourAttack}`, isPlayer: true, id: this.attackId});
       this.countRound();      
       this.monsterAttack();
     },
@@ -27,14 +28,14 @@ const app = new Vue({
       }
       let yourAttack = this.getRandVal(7, 20);
       this.monsterHealth -= yourAttack;
-      this.attackLog.unshift({message: `You special attack Monster for ${yourAttack}`, isPlayer: true});
+      this.attackLog.unshift({message: `You special attack Monster for ${yourAttack}`, isPlayer: true, id: this.attackId});
       this.countRound('special');      
       this.monsterAttack();
     },
     monsterAttack: function(){
       const monsterDamage = this.getRandVal(5, 12);
       this.yourHealth -= monsterDamage;
-      this.attackLog.unshift({message:`Monster attacks You for ${monsterDamage}`, isPlayer: false});
+      this.attackLog.unshift({message:`Monster attacks You for ${monsterDamage}`, isPlayer: false, id: this.attackId});
       this.checkForGameEnd(false);
     },
     heal: function(){
@@ -43,11 +44,12 @@ const app = new Vue({
       }
       let yourHeal = this.getRandVal(6, 15);
       this.yourHealth += yourHeal;
-      this.attackLog.unshift({message: `You heal yourself for ${yourHeal}`, isPlayer: true});
+      this.attackLog.unshift({message: `You heal yourself for ${yourHeal}`, isPlayer: true, id: this.attackId});
       this.countRound('heal');
       this.monsterAttack();
     },
     countRound: function(type){
+      this.attackId++;
       if (type) {
         if (type === 'special') {
           this.specialAttacks -= 1;

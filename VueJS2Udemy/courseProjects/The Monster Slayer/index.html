@@ -49,11 +49,11 @@
     </transition>
     <section class="row log" v-if="attackLog.length > 0">
       <div class="small-12 columns">
-        <transition-group name="fade" tag="ul">
+        <transition-group name="fade" tag="ul" appear>
           <li 
-            v-for="(attack, index) in attackLog"
+            v-for="attack in attackLog"
             :class="attack.isPlayer ? 'player-turn' : 'monster-turn'"
-            :key="index">
+            :key="attack.id">
             {{ attack.message }} {{ attack.value }}
           </li>
         </transition-group>
