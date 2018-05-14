@@ -18,7 +18,13 @@ const router = new VueRouter({
     }
     return {x: 0, y: 0}
   }
-})
+});
+// this is like middleware that will run before each route is visited, can be used for authentication 
+router.beforeEach((to, from, next) => {
+  console.log('beforeEach');
+  // you must call next for the path to be allowed to continue, you can also supply next(false) to stay on the page, or a specific route like next('/)
+  next();
+});
 
 new Vue({
   el: '#app',

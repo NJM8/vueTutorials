@@ -22,6 +22,10 @@
     },
     props: {
       id: String
+    },
+    beforeRouteEnter: (to, from, next) => {
+      console.log('inside component');
+      next();
     }
   }
 </script>
