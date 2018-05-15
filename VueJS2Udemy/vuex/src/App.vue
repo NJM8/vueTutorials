@@ -6,6 +6,8 @@
                 <app-result></app-result>
                 <hr>
                 <app-counter></app-counter>
+                <hr>
+                <app-another-result></app-another-result>
             </div>
         </div>
     </div>
@@ -14,11 +16,13 @@
 <script>
     import Counter from './components/Counter.vue';
     import Result from './components/Result.vue';
+    import AnotherResult from './components/AnotherResult.vue';
 
     export default {
         components: {
             appCounter: Counter,
             appResult: Result,
+            appAnotherResult: AnotherResult,
         }
     }
 </script>
