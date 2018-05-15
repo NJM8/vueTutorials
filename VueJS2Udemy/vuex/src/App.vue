@@ -11,7 +11,8 @@
                 <hr>
                 <app-another-result></app-another-result>
                 <hr>
-                <input type="text" :value="value" @input="updateValue">
+                <!-- <input type="text" :value="value" @input="updateValue"> -->
+                <input type="text" v-model="value">
                 <p>{{ value }}</p>
             </div>
         </div>
@@ -25,9 +26,19 @@
     import AnotherResult from './components/AnotherResult.vue';
 
     export default {
+      // computed: {
+      //   value(){
+      //     return this.$store.state.value;
+      //   }
+      // },
       computed: {
-        value(){
-          return this.$store.state.value;
+        value: {
+          get(){
+            return this.$store.state.value;
+          },
+          set(value){
+            this.$store.dispatch('updateValue', value);
+          }
         }
       },
       methods: {
