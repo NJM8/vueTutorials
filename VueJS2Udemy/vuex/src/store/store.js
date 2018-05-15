@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import counter from './modules/counter'
+import * as actions from './actions'
 
 Vue.use(Vuex);
 
@@ -18,11 +19,7 @@ export const store = new Vuex.Store({
       state.value = payload;
     }
   },
-  actions: {
-    updateValue: ({commit}, payload) => {
-      commit('updateValue', payload);
-    }
-  },
+  actions,
   modules: {
     counter
   }
