@@ -52,7 +52,7 @@ export const store = new Vuex.Store({
       return state.funds;
     },
     getFormattedFunds(state){
-      return `$${state.funds}`;
+      return `$${state.funds.toLocaleString()}`;
     },
     getOwnedStocks(state){
       return state.stocksOwned;
@@ -61,11 +61,16 @@ export const store = new Vuex.Store({
   mutations: {
     updateStockValues(state){
       state.stocks.forEach(stock => {
-        const newHigherStock = helpers.getRandVal(stock.value + 1, stock.value + 30);
+        const newHigherStock = helpers.getRandVal(stock.value + 1, stock.value + 10);
         const newLowerStock = helpers.getRandVal(stock.value - 30, stock.value - 1);
-        const setHigher = helpers.getRandVal(0, 2);
-        setHigher ? stock.value = newHigherStock : stock.value = newLowerStock;
+        const setHigher = helpers.getRandVal(0, 10);
+        setHigher > 3 ? stock.value = newHigherStock : stock.value = newLowerStock;
       })
+    },
+    initializeStockValues(state){
+      state.stocks.forEach(stock => {
+        stock.value = helpers.getRandVal(100, stock.value + 200);
+      });
     },
     sellStock(state, payload){
       console.log('sell');

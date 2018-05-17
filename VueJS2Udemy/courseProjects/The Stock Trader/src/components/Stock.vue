@@ -6,7 +6,7 @@
     <div class="input-group m-2 mt-3 w-75">
       <input class="form-control" type="text" v-model="inputValue">
       <div class="input-group-append">
-        <button class="btn btn-primary" @click="performAction({'name': stock, 'qty': inputValue})">{{ action }}</button>
+        <button class="btn btn-primary" @click.enter="performAction({'name': stock, 'qty': inputValue})">{{ action }}</button>
       </div>
     </div>
   </div>
@@ -26,6 +26,7 @@ export default {
         return;
       } else if (/[^0-9]/.test(this.inputValue)) {
         alert('You can only enter numbers.');
+        this.inputValue = 0;
       } else {
         this.$emit('performed-action', payload);
         this.inputValue = 0;
