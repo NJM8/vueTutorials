@@ -14,6 +14,7 @@
 <script>
 import Stock from './Stock.vue'
 import { mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   data(){
@@ -23,6 +24,11 @@ export default {
   },
   components: {
     'app-stock': Stock
+  },
+  methods: {
+    ...mapMutations({
+      buyStock: 'buyStock'
+    })
   },
   computed: {
     ...mapGetters({

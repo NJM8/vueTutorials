@@ -6,6 +6,8 @@
       :stock="thisStock.name"
       :value="thisStock.value"
       :action="action"
+      :displayOwned="true"
+      :qtyOwned="getQtyOwned(thisStock.name)"
       v-on:performed-action="sellStock">
     </app-stock>
   </div>
@@ -14,11 +16,12 @@
 <script>
 import Stock from './Stock.vue'
 import { mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   data(){
     return {
-      action: 'Sell'
+      action: 'Sell',
     }
   },
   components: {
@@ -26,8 +29,22 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stocks: 'getStocks'
-    })
+      stocks: 'getStocks',
+      getOwnedStocks: 'getOwnedStocks'
+    })   
+  },
+  methods: {
+    ...mapMutations({
+      sellStock: 'sellStock'
+    }),
+    getQtyOwned(thisStock){
+      const stocks = this.getOwnedStocks;
+      for (let i = 0; i < stocks.length; i++) {
+        if (stocks[i].name === thisStock) {
+          return stocks[i].owned
+        }
+      }
+    } 
   }
 }
 </script>

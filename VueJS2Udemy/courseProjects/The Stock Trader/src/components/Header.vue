@@ -22,8 +22,11 @@
             <a class="dropdown-item" href="#">Load</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="updateStockValues">End Day</a>
+        </li>
         <li>
-          <a class="navbar-brand noPointer">Funds: {{ fundsAvailable }}</a>
+          <a class="navbar-brand noPointer">Funds: {{ getFormattedFunds }}</a>
         </li>
       </ul>
     </div>
@@ -31,21 +34,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
+
 export default {
-  data(){
-    return {
-      funds: 10000
-    }
-  }, 
-  computed: {
-    fundsAvailable(){
-      return `$${this.funds}`
-    }
-  },
   methods: {
-    updateCmp(value){
-      this.$store.commit('updateCmp', value)
-    }
+    ...mapMutations({
+      updateStockValues: 'updateStockValues'
+    })
+  },
+  computed: {
+    ...mapGetters([
+      'getFormattedFunds'
+    ])
+    
   }
 }
 </script>
@@ -59,4 +61,7 @@ export default {
   cursor: default !important;
 }
 
+.active {
+  font-weight: bold;
+}
 </style>
