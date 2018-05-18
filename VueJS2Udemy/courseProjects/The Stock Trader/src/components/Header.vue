@@ -18,8 +18,8 @@
             Save & Load Data
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Save</a>
-            <a class="dropdown-item" href="#">Load</a>
+            <a class="dropdown-item" @click="saveData">Save</a>
+            <a class="dropdown-item" @click="getData">Load</a>
           </div>
         </li>
         <li class="nav-item">
@@ -40,14 +40,40 @@ import { mapMutations } from 'vuex'
 export default {
   methods: {
     ...mapMutations({
-      updateStockValues: 'updateStockValues'
-    })
+      updateStockValues: 'updateStockValues',
+      setStockOwned: 'setStockOwned'
+    }),
+    saveData(){
+      this.$http.post(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}`, this.getOwnedStocks)
+        .then(res => {
+          alert('Stocks Saved');
+          console.log(res);
+        }, error => {
+          alert('Opps, there was an error saving, try again');
+          console.log(error);
+        })
+    }, 
+    getData(){
+      this.$http.get(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}`)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          console.log(data)
+          alert('Saved Data Loaded');
+          this.setStockOwned(data);
+        }, error => {
+          alert('Opps, there was an error loading, try again');          
+          console.log(error);
+        })
+    }
   },
   computed: {
-    ...mapGetters([
-      'getFormattedFunds'
-    ])
-    
+    ...mapGetters({
+      getFormattedFunds: 'getFormattedFunds',
+      getIp: 'getIp',
+      getOwnedStocks: 'getOwnedStocks'
+    })
   }
 }
 </script>

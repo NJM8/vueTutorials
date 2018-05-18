@@ -17,11 +17,24 @@ export default {
   },
   methods: {
     ...mapMutations({
-      initializeStockValues: 'initializeStockValues'
-    })
+      initializeStockValues: 'initializeStockValues',
+      setIp: 'setIp'
+    }),
+    getIp(){
+      this.$http.get('https://api.ipify.org?format=json')
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          this.setIp(data.ip);
+        }, error => {
+          console.log(error);
+        })
+    }  
   },
   beforeMount(){
     this.initializeStockValues();
+    this.getIp();
   }
 };
 </script>

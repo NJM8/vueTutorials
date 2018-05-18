@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
+    userIp: undefined,    
     funds: 10000,
     stocksOwned: [
       {
@@ -56,9 +57,18 @@ export const store = new Vuex.Store({
     },
     getOwnedStocks(state){
       return state.stocksOwned;
+    },
+    getIp(state){
+      return state.userIp;
     }
   },
   mutations: {
+    setIp(state, payload){
+      state.userIp = payload;
+    },
+    setStockOwned(state, payload){
+      state.stocksOwned = payload;
+    },
     updateStockValues(state){
       state.stocks.forEach(stock => {
         const newHigherStock = helpers.getRandVal(stock.value + 1, stock.value + 10);
@@ -76,7 +86,6 @@ export const store = new Vuex.Store({
       });
     },
     sellStock(state, payload){
-      console.log('sell');
       let value = 0;
       state.stocks.forEach(stock => {
         if (stock.name === payload.name) {
@@ -101,7 +110,6 @@ export const store = new Vuex.Store({
           value = stock.value;
         }
       })
-      console.log(value);
       if (state.funds < (value * payload.qty)){
         alert('You do not have enough funds');
         return;
