@@ -8,9 +8,9 @@
     </p>
     <p class="m-2 text-white" v-if="displayOwned">Stocks Owned: {{ qtyOwned }} Total Value: {{ totalValue }}</p>
     <div class="input-group m-2 mt-3 w-75">
-      <input class="form-control" type="text" v-model="inputValue">
+      <input class="form-control" type="text" v-model="inputValue" @keyup.enter="performAction({'name': stock, 'qty': inputValue})">
       <div class="input-group-append">
-        <button class="btn btn-primary" @click.enter="performAction({'name': stock, 'qty': inputValue})">{{ action }}</button>
+        <button class="btn btn-primary" @click="performAction({'name': stock, 'qty': inputValue})">{{ action }}</button>
       </div>
     </div>
   </div>
