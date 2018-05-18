@@ -44,7 +44,7 @@ export default {
       setStockOwned: 'setStockOwned'
     }),
     saveData(){
-      this.$http.post(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}`, this.getOwnedStocks)
+      this.$http.put(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}.json`, this.getOwnedStocks)
         .then(res => {
           alert('Stocks Saved');
           console.log(res);
@@ -54,7 +54,7 @@ export default {
         })
     }, 
     getData(){
-      this.$http.get(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}`)
+      this.$http.get(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}.json`)
         .then(res => {
           return res.json();
         })

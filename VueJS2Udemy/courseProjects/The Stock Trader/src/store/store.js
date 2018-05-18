@@ -64,7 +64,7 @@ export const store = new Vuex.Store({
   },
   mutations: {
     setIp(state, payload){
-      state.userIp = payload;
+      state.userIp = payload.replace(/\./g, '');
     },
     setStockOwned(state, payload){
       state.stocksOwned = payload;
