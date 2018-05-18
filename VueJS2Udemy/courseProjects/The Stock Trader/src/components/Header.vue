@@ -41,7 +41,7 @@ export default {
   methods: {
     ...mapMutations({
       updateStockValues: 'updateStockValues',
-      setStockOwned: 'setStockOwned'
+      buyStock: 'buyStock'
     }),
     saveData(){
       this.$http.put(`https://the-stock-trader-59331.firebaseio.com/${this.getIp}.json`, this.getOwnedStocks)
@@ -61,7 +61,9 @@ export default {
         .then(data => {
           console.log(data)
           alert('Saved Data Loaded');
-          this.setStockOwned(data);
+          data.forEach(stock => {
+            this.buyStock(stock);
+          })
         }, error => {
           alert('Opps, there was an error loading, try again');          
           console.log(error);

@@ -11,19 +11,19 @@ export const store = new Vuex.Store({
     stocksOwned: [
       {
       name: 'BMW',
-      owned: 0
+      qty: 0
     },
       {
       name: 'Apple',
-      owned: 0
+      qty: 0
     },
       {
       name: 'Google',
-      owned: 0
+      qty: 0
     },
       {
       name: 'Tesla',
-      owned: 0
+      qty: 0
     },
   ],
     stocks: [
@@ -66,9 +66,6 @@ export const store = new Vuex.Store({
     setIp(state, payload){
       state.userIp = payload.replace(/\./g, '');
     },
-    setStockOwned(state, payload){
-      state.stocksOwned = payload;
-    },
     updateStockValues(state){
       state.stocks.forEach(stock => {
         const newHigherStock = helpers.getRandVal(stock.value + 1, stock.value + 10);
@@ -94,12 +91,12 @@ export const store = new Vuex.Store({
       })
       state.stocksOwned.forEach(stock => {
         if (stock.name === payload.name) {
-          if (stock.owned < payload.qty) {
-            alert(`You only have ${stock.owned} of this stock to sell`);
+          if (stock.qty < payload.qty) {
+            alert(`You only have ${stock.qty} of this stock to sell`);
             return;
           }
-          state.funds += ( stock.owned * value );
-          stock.owned -= payload.qty;
+          state.funds += ( stock.qty * value );
+          stock.qty -= payload.qty;
         }
       })
     },
@@ -116,7 +113,7 @@ export const store = new Vuex.Store({
       }
       state.stocksOwned.forEach(stock => {
         if (stock.name === payload.name) {
-          stock.owned += Number(payload.qty);
+          stock.qty += Number(payload.qty);
           state.funds -= ( payload.qty * value );
         }
       })

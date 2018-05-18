@@ -41,7 +41,7 @@ export default {
       const stocks = this.getOwnedStocks;
       for (let i = 0; i < stocks.length; i++) {
         if (stocks[i].name === thisStock) {
-          return stocks[i].owned
+          return stocks[i].qty
         }
       }
     } 
