@@ -28,19 +28,19 @@ export const store = new Vuex.Store({
     stocks: [
       {
       name: 'BMW',
-      value: 123
+      value: 0
     },
       {
       name: 'Apple',
-      value: 254
+      value: 0
     },
       {
       name: 'Google',
-      value: 654
+      value: 0
     },
       {
       name: 'Tesla',
-      value: 98
+      value: 0
     },
   ]
   },

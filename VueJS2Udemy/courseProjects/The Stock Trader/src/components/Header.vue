@@ -23,7 +23,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="updateStockValues">End Day</a>
+          <button class="btn btn-info mr-2" @click="updateStockValues">End Day</button>
         </li>
         <li>
           <a class="navbar-brand noPointer">Funds: {{ getFormattedFunds }}</a>

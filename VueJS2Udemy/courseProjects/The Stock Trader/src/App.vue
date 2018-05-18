@@ -9,10 +9,19 @@
 
 <script>
 import Header from './components/Header.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
     'app-header': Header,
+  },
+  methods: {
+    ...mapMutations({
+      initializeStockValues: 'initializeStockValues'
+    })
+  },
+  beforeMount(){
+    this.initializeStockValues();
   }
 };
 </script>
