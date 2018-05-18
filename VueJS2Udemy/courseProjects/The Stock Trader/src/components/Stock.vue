@@ -1,7 +1,11 @@
 <template>
   <div class="stockCard border border-dark rounded">
     <p class="m-2 text-white">Stock: {{ stock }}</p>
-    <p class="m-2 text-white">Value: {{ formatValue }}</p>
+    <p class="m-2 text-white">Value: 
+      <transition name="fade" mode="out-in">
+        <span :key="value">{{ formatValue }}</span>
+      </transition>
+    </p>
     <p class="m-2 text-white" v-if="displayOwned">Stocks Owned: {{ qtyOwned }} Total Value: {{ totalValue }}</p>
     <div class="input-group m-2 mt-3 w-75">
       <input class="form-control" type="text" v-model="inputValue">
@@ -49,5 +53,16 @@ export default {
   width: 400px;
   background-color: #42b883;
   margin: 10px;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 500ms;
+}
+.fade-leave-active {
+  transition: all 500ms;
+  /* here we define our transition again as it needs to take place and what we are transitioning too */
+  opacity: 0;
 }
 </style>
