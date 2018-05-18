@@ -62,7 +62,10 @@ export const store = new Vuex.Store({
     updateStockValues(state){
       state.stocks.forEach(stock => {
         const newHigherStock = helpers.getRandVal(stock.value + 1, stock.value + 10);
-        const newLowerStock = helpers.getRandVal(stock.value - 30, stock.value - 1);
+        let newLowerStock = helpers.getRandVal(stock.value - 30, stock.value - 1);
+        if (newLowerStock < 0) {
+          newLowerStock = 0;
+        }
         const setHigher = helpers.getRandVal(0, 10);
         setHigher > 3 ? stock.value = newHigherStock : stock.value = newLowerStock;
       })
