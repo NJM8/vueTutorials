@@ -64,6 +64,21 @@ export const store = new Vuex.Store({
     },
     getIp(state){
       return state.userIp;
+    },
+    getDataToSave(state){
+      let data = [];
+      state.stocks.forEach(stock => {
+        data.push(stock);
+      });
+      state.stocksOwned.forEach(stock => {
+        data.forEach(st => {
+          if (stock.name === st.name) {
+            st.qty = stock.qty;
+          }
+        });
+      });
+      data.push({name: 'funds', value: state.funds});
+      return data;
     }
   },
   mutations: {
@@ -104,11 +119,26 @@ export const store = new Vuex.Store({
         }
       })
     },
-    resetStocksAndFunds(state){
-      state.funds = 10000;
+    resetStocksAndFunds(state, payload){
+      payload.forEach(st => {
+        if (st.name === 'funds') {
+          state.funds = st.value;
+        }
+      });
       state.stocksOwned.forEach(stock => {
-        stock.qty = 0;
-      })
+        payload.forEach(st => {
+          if (stock.name === st.name) {
+            stock.qty = st.qty;
+          }
+        })
+      });
+      state.stocks.forEach(stock => {
+        payload.forEach(st => {
+          if (stock.name === st.name) {
+            stock.value = st.value;
+          }
+        })
+      });
     },
     buyStock(state, payload){
       let value = 0;
