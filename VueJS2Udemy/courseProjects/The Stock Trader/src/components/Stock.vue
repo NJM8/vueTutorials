@@ -10,7 +10,9 @@
     <div class="input-group m-2 mt-3 w-75">
       <input class="form-control" type="text" v-model="inputValue" @keyup.enter="performAction({'name': stock, 'qty': inputValue})">
       <div class="input-group-append">
-        <button class="btn btn-primary" @click="performAction({'name': stock, 'qty': inputValue})">{{ action }}</button>
+        <button class="btn btn-primary" 
+          @click="performAction({'name': stock, 'qty': inputValue})"
+          :disabled="inputValue <= 0 || !Number.isInteger(Number(inputValue))">{{ action }}</button>
       </div>
     </div>
   </div>
