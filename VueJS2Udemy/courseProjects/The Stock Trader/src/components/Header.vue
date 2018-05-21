@@ -13,8 +13,14 @@
         <router-link to="/stocks" tag="li" active-class="active" class="nav-item">
           <a class="nav-link">Stocks</a>
         </router-link>
-        <li class="nav-item dropdown ml-auto mr-2">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown ml-auto mr-2"
+             :class="{show :openDropdown}"
+             @click="openDropdown = !openDropdown">
+          <a class="nav-link dropdown-toggle"
+             id="navbarDropdownMenuLink" 
+             data-toggle="dropdown" 
+             aria-haspopup="true" 
+             aria-expanded="false">
             Save & Load Data
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -38,6 +44,11 @@ import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
+  data(){
+    return {
+      openDropdown: false
+    }
+  },
   methods: {
     ...mapMutations({
       updateStockValues: 'updateStockValues',
