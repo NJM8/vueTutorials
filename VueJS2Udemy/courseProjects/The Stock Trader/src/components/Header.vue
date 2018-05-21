@@ -6,8 +6,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav d-flex w-100">
-          <!-- <a>Portfolio<span class="sr-only">(current)</span></a> -->
         <router-link to="/" tag="li" active-class="active" exact class="nav-item">
+          <a class="nav-link">Home</a>
+        </router-link>
+        <router-link to="/portfolio" tag="li" active-class="active" class="nav-item">
           <a class="nav-link">Portfolio</a>
         </router-link>
         <router-link to="/stocks" tag="li" active-class="active" class="nav-item">

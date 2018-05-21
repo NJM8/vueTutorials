@@ -29,18 +29,22 @@ export const store = new Vuex.Store({
     stocks: [
       {
       name: 'BMW',
+      defaultValue: 136,
       value: 0
     },
       {
       name: 'Apple',
+      defaultValue: 357,
       value: 0
     },
       {
       name: 'Google',
+      defaultValue: 563,
       value: 0
     },
       {
       name: 'Tesla',
+      defaultValue: 98,
       value: 0
     },
   ]
@@ -79,7 +83,7 @@ export const store = new Vuex.Store({
     },
     initializeStockValues(state){
       state.stocks.forEach(stock => {
-        stock.value = helpers.getRandVal(100, stock.value + 200);
+        stock.value = stock.defaultValue;
       });
     },
     sellStock(state, payload){
