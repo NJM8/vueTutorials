@@ -110,10 +110,6 @@ export const store = new Vuex.Store({
       })
       state.stocksOwned.forEach(stock => {
         if (stock.name === payload.name) {
-          if (stock.qty < payload.qty) {
-            alert(`You only have ${stock.qty} of this stock to sell`);
-            return;
-          }
           state.funds += ( stock.qty * value );
           stock.qty -= payload.qty;
         }
@@ -147,10 +143,6 @@ export const store = new Vuex.Store({
           value = stock.value;
         }
       })
-      if (state.funds < (value * payload.qty)){
-        alert('You do not have enough funds');
-        return;
-      }
       state.stocksOwned.forEach(stock => {
         if (stock.name === payload.name) {
           stock.qty += Number(payload.qty);

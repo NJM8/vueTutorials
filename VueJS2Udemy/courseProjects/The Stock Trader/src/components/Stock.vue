@@ -8,17 +8,24 @@
     </p>
     <p class="m-2 text-white" v-if="displayOwned">Stocks Owned: {{ qtyOwned }} Total Value: {{ totalValue }}</p>
     <div class="input-group m-2 mt-3 w-75">
-      <input class="form-control" type="text" v-model="inputValue" @keyup.enter="performAction({'name': stock, 'qty': inputValue})">
+      <input 
+        class="form-control" 
+        type="number" 
+        v-model="inputValue" 
+        @keyup.enter="performAction({'name': stock, 'qty': inputValue})"
+        :class="{danger: inputValue > qtyOwned || canBuy}">
       <div class="input-group-append">
         <button class="btn btn-primary" 
           @click="performAction({'name': stock, 'qty': inputValue})"
-          :disabled="inputValue <= 0 || !Number.isInteger(Number(inputValue))">{{ action }}</button>
+          :disabled="canBuy || inputValue > qtyOwned || inputValue <= 0 || !Number.isInteger(Number(inputValue))">{{ action }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: ['stock', 'value', 'action', 'displayOwned', 'qtyOwned'],
   data(){
@@ -27,16 +34,12 @@ export default {
     }
   },
   methods: {
+    ...mapGetters({
+      getFunds: 'getFunds'
+    }),
     performAction(payload){
-      if (this.inputValue < 1) {
-        return;
-      } else if (/[^0-9]/.test(this.inputValue)) {
-        alert('You can only enter numbers.');
-        this.inputValue = 0;
-      } else {
-        this.$emit('performed-action', payload);
-        this.inputValue = 0;
-      }
+      this.$emit('performed-action', payload);
+      this.inputValue = 0;
     }
   },
   computed: {
@@ -45,12 +48,18 @@ export default {
     },
     totalValue(){
       return `$${this.value * this.qtyOwned}`;
+    },
+    canBuy(){
+      return this.displayOwned ? false : (this.inputValue * this.value) > this.getFunds();
     }
   }
 }
 </script>
 
 <style>
+.danger {
+  border: 2px solid firebrick !important;
+}
 .stockCard {
   width: 400px;
   background-color: #42b883;
