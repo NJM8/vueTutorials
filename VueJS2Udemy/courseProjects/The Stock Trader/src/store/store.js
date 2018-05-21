@@ -100,6 +100,12 @@ export const store = new Vuex.Store({
         }
       })
     },
+    resetStocksAndFunds(state){
+      state.funds = 10000;
+      state.stocksOwned.forEach(stock => {
+        stock.qty = 0;
+      })
+    },
     buyStock(state, payload){
       let value = 0;
       state.stocks.forEach(stock => {
