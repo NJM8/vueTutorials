@@ -105,7 +105,6 @@ import * as Key from './key';
           hobbies: this.hobbyInputs.map(hobby => hobby.value),
           terms: this.terms
         }
-        console.log(formData);
         axios.post(`/signupNewUser?key=${Key.myKey}`, {
           email: formData.email, 
           password: formData.password, 
