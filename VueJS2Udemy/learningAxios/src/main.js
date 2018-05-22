@@ -7,7 +7,7 @@ import store from './store'
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://learningaxios.firebaseio.com';
-axios.defaults.headers.common['authorization'] = 'superSecretKey';
+// axios.defaults.headers.common['authorization'] = 'superSecretKey';
 axios.defaults.headers.get['Accepts'] = 'application/json';
 const reqInterceptor = axios.interceptors.request.use(config => {
   console.log('request');
