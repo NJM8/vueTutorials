@@ -11,7 +11,10 @@ export default new Vuex.Store({
     userId: null
   },
   mutations: {
-
+    authUser(state, userData){
+      state.idToken = userData.token;
+      state.userId = userData.userId;
+    }
   },
   actions: {
     signUp({commit}, authData){
@@ -20,7 +23,13 @@ export default new Vuex.Store({
         password: authData.password, 
         returnSecureToken: true
       })
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          commit('authUser', {
+            token: res.data.idToken,
+            userId: res.data.localId
+          });
+        })
         .catch(error => console.log(error))
 
     }, 
@@ -30,7 +39,13 @@ export default new Vuex.Store({
         password: authData.password, 
         returnSecureToken: true
       })
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          commit('authUser', {
+            token: res.data.idToken,
+            userId: res.data.localId
+          });
+        })
         .catch(error => console.log(error))
     }
   },
