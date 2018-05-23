@@ -10,6 +10,7 @@
                   @blur="$v.email.$touch()"
                   v-model="email">
           <p v-if="!$v.email.email">Please provide a valid email address</p>
+          <p v-if="emailTaken">This email address is already in use</p>
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
           <label for="age">Your Age</label>
@@ -84,6 +85,8 @@
 
 <script>
 import { required, email, numeric, minValue, minLength, sameAs, requiredUnless } from 'vuelidate/lib/validators'
+import axios from 'axios'
+
   export default {
     data () {
       return {
@@ -93,7 +96,8 @@ import { required, email, numeric, minValue, minLength, sameAs, requiredUnless }
         confirmPassword: '',
         country: 'usa',
         hobbyInputs: [],
-        terms: false
+        terms: false,
+        emailTaken: false
       }
     },
     validations: {
@@ -101,7 +105,18 @@ import { required, email, numeric, minValue, minLength, sameAs, requiredUnless }
         required,
         email,
         unique: val => {
-          return val !== 'test@test.com';
+          if (val === '') return true;
+          return axios.get(`users.json?orderBy="email"&equalTo="${val}"`)
+            .then(res => {
+              const emailNotTaken = Object.keys(res.data).length === 0;
+              if (emailNotTaken) {
+                this.emailTaken = false;
+                return true;
+              } else {
+                this.emailTaken = true;
+                return false;
+              }
+            })
         }
       },
       age: {
