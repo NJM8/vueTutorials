@@ -62,8 +62,8 @@
                       v-model="hobbyInput.value">
               <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
             </div>
-            <p v-if="!$v.hobbyInputs.minLen">You have to specify {{ $v.hobbyInputs.$params.minLen.min }} hobbies.</p>
-            <p v-if="!$v.hobbyInputs.$invalid">Please add hobbies.</p>
+            <p v-if="!$v.hobbyInputs.minLen">You have to specify at least {{ $v.hobbyInputs.$params.minLen.min }} hobbies.</p>
+            <p v-if="!$v.hobbyInputs.required">Please add hobbies.</p>
           </div>
         </div>
         <div class="input inline" :class="{invalid: $v.terms.$invalid}">
@@ -75,7 +75,7 @@
           <label for="terms">Accept Terms of Use</label>
         </div>
         <div class="submit">
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -99,7 +99,10 @@ import { required, email, numeric, minValue, minLength, sameAs, requiredUnless }
     validations: {
       email: {
         required,
-        email
+        email,
+        unique: val => {
+          return val !== 'test@test.com';
+        }
       },
       age: {
         required, 
@@ -122,6 +125,7 @@ import { required, email, numeric, minValue, minLength, sameAs, requiredUnless }
         })
       },
       hobbyInputs: {
+        required,
         minLen: minLength(2),
         $each: {
           value: {
