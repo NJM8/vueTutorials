@@ -63,10 +63,10 @@
               <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
             </div>
             <p v-if="!$v.hobbyInputs.minLen">You have to specify {{ $v.hobbyInputs.$params.minLen.min }} hobbies.</p>
-            <p v-if="!$v.hobbyInputs.required">Please add a hobby</p>
+            <p v-if="!$v.hobbyInputs.$invalid">Please add hobbies.</p>
           </div>
         </div>
-        <div class="input inline" :class="{invalid: $v.terms.$error}">
+        <div class="input inline" :class="{invalid: $v.terms.$invalid}">
           <input 
             type="checkbox" 
             id="terms" 
