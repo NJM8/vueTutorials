@@ -135,9 +135,12 @@ import axios from 'axios'
         })
       },
       terms: {
-        required: requiredUnless(vm => {
-          return vm.country === 'germany';
-        })
+        // required: requiredUnless(vm => {
+        //   return vm.country === 'germany';
+        // })
+        checked(val){
+          return this.country === 'germany' ? true : val;
+        }
       },
       hobbyInputs: {
         required,
