@@ -10,7 +10,7 @@
                   @blur="$v.email.$touch()"
                   v-model="email">
           <p v-if="!$v.email.email">Please provide a valid email address</p>
-          <p v-if="emailTaken">This email address is already in use</p>
+          <p v-if="!$v.email.unique">This email address is already in use</p>
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
           <label for="age">Your Age</label>
@@ -96,8 +96,7 @@ import axios from 'axios'
         confirmPassword: '',
         country: 'usa',
         hobbyInputs: [],
-        terms: false,
-        emailTaken: false
+        terms: false
       }
     },
     validations: {
@@ -107,15 +106,9 @@ import axios from 'axios'
         unique: val => {
           if (val === '') return true;
           return axios.get(`users.json?orderBy="email"&equalTo="${val}"`)
-            .then(res => {
-              const emailNotTaken = Object.keys(res.data).length === 0;
-              if (emailNotTaken) {
-                this.emailTaken = false;
-                return true;
-              } else {
-                this.emailTaken = true;
-                return false;
-              }
+            .then(function(res){
+              console.log('hit');
+              return Object.keys(res.data).length === 0;
             })
         }
       },
